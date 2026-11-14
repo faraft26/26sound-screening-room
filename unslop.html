@@ -2372,10 +2372,10 @@
           <div class="form-block">
             <div class="field-header">
               <span class="field-label" data-i18n="fb.step1">1. Preferred direction</span>
-              <span class="field-value-badge tabular" id="selectedDirectionEcho">Demo 1</span>
+              <span class="field-value-badge tabular" id="selectedDirectionEcho" data-i18n="dynamic.notSelected">Not selected</span>
             </div>
             <div class="pill-row" id="directionPills">
-              <button type="button" class="choice-btn active" data-dir="Demo 1" onclick="selectDirection('Demo 1', this)" data-i18n="fb.dir1">Demo 1</button>
+              <button type="button" class="choice-btn" data-dir="Demo 1" onclick="selectDirection('Demo 1', this)" data-i18n="fb.dir1">Demo 1</button>
               <button type="button" class="choice-btn" data-dir="Demo 2" onclick="selectDirection('Demo 2', this)" data-i18n="fb.dir2">Demo 2</button>
               <button type="button" class="choice-btn" data-dir="Demo 3" onclick="selectDirection('Demo 3', this)" data-i18n="fb.dir3">Demo 3</button>
               <button type="button" class="choice-btn" data-dir="Hybrid (Combine)" onclick="selectDirection('Hybrid (Combine)', this)" data-i18n="fb.dirHybrid">Hybrid (Combine)</button>
@@ -2624,12 +2624,14 @@
         'footer.copy': '26Sound Studio · Private screening room for Tele2 and Rodnaya Rech',
         'footer.conf': 'Private link · Unlisted review',
         'footer.top': 'Back to top',
-        'dynamic.activeDemo': 'Active demo',
+        'dynamic.activeDemo': 'In player',
+        'dynamic.notSelected': 'Not selected',
         'dynamic.screening': 'Screening',
         'dynamic.editingNote': 'Editing notes for Demo',
         'dynamic.toastCopied': 'Review copied to clipboard',
         'dynamic.toastTc': 'Timecode added to Demo',
         'dynamic.toastFav': 'Selected direction:',
+        'dynamic.toastUnfav': 'Selection cleared',
         'dynamic.toastTxt': 'Downloaded feedback report (.txt)',
         'dynamic.toastSent': 'Review posted to working group'
       },
@@ -2713,12 +2715,14 @@
         'footer.copy': '26Sound Studio · Закрытый просмотр для Tele2 и Родной Речи',
         'footer.conf': 'Закрытый доступ · Прямая ссылка',
         'footer.top': 'Наверх',
-        'dynamic.activeDemo': 'Активный вариант',
+        'dynamic.activeDemo': 'В плеере',
+        'dynamic.notSelected': 'Не выбрано',
         'dynamic.screening': 'Просмотр',
         'dynamic.editingNote': 'Заметки для Демо',
         'dynamic.toastCopied': 'Текст отзыва скопирован',
         'dynamic.toastTc': 'Таймкод добавлен к Демо',
         'dynamic.toastFav': 'Выбрано направление:',
+        'dynamic.toastUnfav': 'Выбор снят',
         'dynamic.toastTxt': 'Отчёт скачан (.txt)',
         'dynamic.toastSent': 'Отзыв отправлен в рабочую группу'
       }
@@ -2727,7 +2731,7 @@
     /* ==========================================================================
        3. APP STATE
        ========================================================================== */
-    const STORAGE_KEY = 'tele2_26sound_feedback_v1';
+    const STORAGE_KEY = 'tele2_26sound_feedback_v2';
     const LANG_STORAGE_KEY = 'tele2_26sound_lang';
 
     function detectInitialLang() {
@@ -2751,7 +2755,7 @@
     const audioDurations = {};
 
     const feedbackState = {
-      direction: 'Demo 1',
+      direction: '',
       notes: { 1: '', 2: '', 3: '' },
       overall: '',
       author: ''
@@ -2871,6 +2875,7 @@
       updateVideoMetadataUI();
       renderAudioGrid();
       updateCommentTabUI();
+      updateDirectionEchoUI();
       refreshSummaryPreview();
     }
 
@@ -3202,17 +3207,30 @@
       document.getElementById('video-screening').scrollIntoView({ behavior: 'smooth' });
     }
 
+    function updateDirectionEchoUI() {
+      const echoEl = document.getElementById('selectedDirectionEcho');
+      if (!echoEl) return;
+      if (feedbackState.direction) {
+        echoEl.removeAttribute('data-i18n');
+        echoEl.textContent = feedbackState.direction;
+      } else {
+        echoEl.setAttribute('data-i18n', 'dynamic.notSelected');
+        echoEl.textContent = t('dynamic.notSelected');
+      }
+    }
+
     function markFavoriteFromCard(id) {
       const code = `Demo ${id}`;
-      feedbackState.direction = code;
+      const isClearing = feedbackState.direction === code;
+      feedbackState.direction = isClearing ? '' : code;
       document.querySelectorAll('#directionPills .choice-btn').forEach((btn) => {
-        btn.classList.toggle('active', btn.getAttribute('data-dir') === code);
+        btn.classList.toggle('active', Boolean(feedbackState.direction) && btn.getAttribute('data-dir') === feedbackState.direction);
       });
-      document.getElementById('selectedDirectionEcho').textContent = code;
+      updateDirectionEchoUI();
       saveFeedbackDraft();
       renderAudioGrid();
       refreshSummaryPreview();
-      showToast(`${t('dynamic.toastFav')} ${code}`);
+      showToast(isClearing ? t('dynamic.toastUnfav') : `${t('dynamic.toastFav')} ${code}`);
     }
 
     /* ==========================================================================
@@ -3254,10 +3272,12 @@
     }
 
     function selectDirection(dir, btn) {
-      feedbackState.direction = dir;
-      document.querySelectorAll('#directionPills .choice-btn').forEach((p) => p.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      document.getElementById('selectedDirectionEcho').textContent = dir;
+      const isClearing = feedbackState.direction === dir;
+      feedbackState.direction = isClearing ? '' : dir;
+      document.querySelectorAll('#directionPills .choice-btn').forEach((p) => {
+        p.classList.toggle('active', Boolean(feedbackState.direction) && p.getAttribute('data-dir') === feedbackState.direction);
+      });
+      updateDirectionEchoUI();
       saveFeedbackDraft();
       renderAudioGrid();
       refreshSummaryPreview();
@@ -3304,7 +3324,7 @@
 
       lines.push(isRu ? '26Sound Studio — Отзыв по демо Tele2 «Заморозка цены 2027»' : '26Sound Studio — Tele2 “Price Freeze 2027” score review');
       lines.push('----------------------------------------');
-      lines.push(`${isRu ? 'Выбранное направление' : 'Preferred direction'}: ${feedbackState.direction}`);
+      lines.push(`${isRu ? 'Выбранное направление' : 'Preferred direction'}: ${feedbackState.direction || t('dynamic.notSelected')}`);
       lines.push(`${isRu ? 'Отправитель' : 'Reviewer'}: ${author}`);
       lines.push('');
 
@@ -3419,21 +3439,22 @@
     function restoreFeedbackDraft() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
-        const data = JSON.parse(raw);
-        if (data.direction) {
-          feedbackState.direction = data.direction.replace(/^Demo 0([123])$/, 'Demo $1');
+        if (raw) {
+          const data = JSON.parse(raw);
+          feedbackState.direction = typeof data.direction === 'string'
+            ? data.direction.replace(/^Demo 0([123])$/, 'Demo $1')
+            : '';
+          if (data.notes) feedbackState.notes = Object.assign({ 1: '', 2: '', 3: '' }, data.notes);
+          if (typeof data.overall === 'string') feedbackState.overall = data.overall;
+          if (typeof data.author === 'string') feedbackState.author = data.author;
         }
-        if (data.notes) feedbackState.notes = Object.assign({ 1: '', 2: '', 3: '' }, data.notes);
-        if (typeof data.overall === 'string') feedbackState.overall = data.overall;
-        if (typeof data.author === 'string') feedbackState.author = data.author;
       } catch (_) {}
 
       document.getElementById('overallNoteInput').value = feedbackState.overall || '';
       document.getElementById('authorInput').value = feedbackState.author || '';
-      document.getElementById('selectedDirectionEcho').textContent = feedbackState.direction;
+      updateDirectionEchoUI();
       document.querySelectorAll('#directionPills .choice-btn').forEach((p) => {
-        p.classList.toggle('active', p.getAttribute('data-dir') === feedbackState.direction);
+        p.classList.toggle('active', Boolean(feedbackState.direction) && p.getAttribute('data-dir') === feedbackState.direction);
       });
     }
 
