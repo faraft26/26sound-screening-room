@@ -1,0 +1,3455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet" />
+  <title>26Sound Studio — Private Screening Room</title>
+  <script>
+    (function() {
+      var isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      var params = new URLSearchParams(window.location.search);
+      var key = params.get('access') || params.get('key') || params.get('token');
+      var validKey = '26s_tele2_2027';
+      try {
+        if (key === validKey) sessionStorage.setItem('26s_access_ok', '1');
+        if (!isLocal && key !== validKey && sessionStorage.getItem('26s_access_ok') !== '1') {
+          document.documentElement.innerHTML = '';
+          window.location.replace('about:blank');
+        }
+      } catch (e) {
+        if (!isLocal && key !== validKey) {
+          window.location.replace('about:blank');
+        }
+      }
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="apple-touch-icon" href="assets/logo-26sound-horizontal.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Geologica:CRSV,SHRP,wght@0,100,400;0,100,500&family=Golos+Text:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Hybrid screening room uniting 26Sound Studio Pulse Hero with the unslop methodology by Damir Sokolovsky (@heydamir), CC BY 4.0 -->
+  <style>
+    :root {
+      /* Warm dark studio palette + Obsidian Hero bridge */
+      --bg-hero: #050204;
+      --bg-deepest: #12110f;
+      --bg-page: #161513;
+      --bg-card: #1c1a18;
+      --bg-raised: #262421;
+      --bg-hover: #2d2a26;
+
+      --hairline: rgba(239, 233, 222, 0.08);
+      --hairline-strong: rgba(239, 233, 222, 0.16);
+      --highlight-top: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+
+      --text-primary: #efe9de;
+      --text-secondary: #aaa398;
+      --text-muted: #8a847a;
+
+      /* Single brand accent & semantic positive */
+      --accent: #EA5A42;
+      --accent-soft: rgba(234, 90, 66, 0.14);
+      --accent-border: rgba(234, 90, 66, 0.48);
+      --positive: #4cc38a;
+      --positive-soft: rgba(76, 195, 138, 0.14);
+      --positive-border: rgba(76, 195, 138, 0.45);
+
+      /* Brand typography */
+      --font-display: 'Archivo', 'Golos Text', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Golos Text', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Geologica', 'Golos Text', monospace;
+      --font-serif: 'Playfair Display', Georgia, serif;
+
+      --ease-studio: cubic-bezier(0.22, 1, 0.36, 1);
+      --radius-panel: 16px;
+      --radius-card: 12px;
+      --radius-control: 8px;
+      --radius-keycap: 6px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+      overflow-x: clip;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      overflow-x: clip;
+      min-height: 100vh;
+    }
+
+    .tabular {
+      font-family: var(--font-mono);
+      font-variation-settings: 'SHRP' 100, 'CRSV' 0;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.01em;
+    }
+
+    :focus-visible {
+      outline: 2px solid rgba(239, 233, 222, 0.6);
+      outline-offset: 2px;
+    }
+
+    .icon-16 {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .shell {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    /* ==========================================================================
+       PERSISTENT TOP NAVIGATION BAR (FIXED OVER HERO + STAYS WHILE SCROLLING)
+       ========================================================================== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      height: 64px;
+      background: rgba(12, 10, 11, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .header-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      height: 100%;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .brand-logo-link {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+
+    .brand-logo-img {
+      display: block;
+      height: 24px;
+      width: auto;
+      aspect-ratio: 1024 / 159;
+      object-fit: contain;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--hairline-strong);
+      flex-shrink: 0;
+    }
+
+    .room-context {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      height: 36px;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 150ms var(--ease-studio);
+    }
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .compare-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 12px;
+      border-radius: var(--radius-control);
+      border: 1px solid var(--hairline);
+      color: var(--text-muted);
+      font-size: 12px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color 150ms var(--ease-studio), color 150ms var(--ease-studio);
+    }
+    .compare-link:hover {
+      border-color: var(--hairline-strong);
+      color: var(--text-primary);
+    }
+
+    .lang-segment {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px;
+      border-radius: var(--radius-control);
+      background: var(--bg-card);
+      border: 1px solid var(--hairline-strong);
+    }
+
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 30px;
+      border-radius: var(--radius-keycap);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-studio), color 150ms var(--ease-studio);
+    }
+    .lang-btn:hover {
+      color: var(--text-primary);
+    }
+    .lang-btn.active {
+      background: var(--bg-raised);
+      color: var(--text-primary);
+      box-shadow: var(--highlight-top);
+    }
+
+    .btn-header-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 16px;
+      border-radius: var(--radius-control);
+      background: var(--bg-raised);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: var(--highlight-top);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 150ms var(--ease-studio), border-color 150ms var(--ease-studio), transform 120ms var(--ease-studio);
+    }
+    .btn-header-cta:hover {
+      background: var(--bg-hover);
+      border-color: rgba(239, 233, 222, 0.28);
+    }
+    .btn-header-cta:active {
+      transform: scale(0.98);
+    }
+
+    .mobile-actions {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .mobile-menu-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 12px;
+      border-radius: var(--radius-control);
+      background: var(--bg-raised);
+      border: 1px solid var(--hairline-strong);
+      color: var(--text-primary);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(18, 17, 15, 0.72);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 200ms var(--ease-studio), visibility 200ms var(--ease-studio);
+    }
+
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 70;
+      width: min(100vw, 320px);
+      background: var(--bg-deepest);
+      border-left: 1px solid var(--hairline-strong);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transform: translate3d(100%, 0, 0);
+      visibility: hidden;
+      transition: transform 240ms var(--ease-studio), visibility 240ms var(--ease-studio);
+    }
+
+    body.mobile-nav-open { overflow: hidden; }
+    body.mobile-nav-open .mobile-drawer-backdrop { opacity: 1; visibility: visible; pointer-events: auto; }
+    body.mobile-nav-open .mobile-drawer { transform: translate3d(0, 0, 0); visibility: visible; }
+
+    .drawer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .drawer-close {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: var(--radius-control);
+      border: 1px solid var(--hairline-strong);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .drawer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 20px;
+    }
+
+    .drawer-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 44px;
+      padding: 0 8px;
+      border-radius: var(--radius-control);
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: background-color 150ms var(--ease-studio);
+    }
+    .drawer-link:hover {
+      background: var(--bg-card);
+    }
+    .drawer-link-num {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .drawer-footer {
+      border-top: 1px solid var(--hairline);
+      padding-top: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       ANIMATED HERO SLIDE (LOCKED PIXEL GEOMETRY ACROSS EN & RU)
+       ========================================================================== */
+    .hero-wanda-pulse {
+      position: relative;
+      height: 100vh;
+      height: 100svh;
+      min-height: 680px;
+      max-height: 920px;
+      width: 100%;
+      padding: 88px 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+      background-color: var(--bg-hero);
+      border-bottom: 1px solid var(--hairline);
+      isolation: isolate;
+    }
+
+    #fluted-logo-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateZ(0);
+      transition: opacity 0.55s var(--ease-studio);
+    }
+
+    .hero-svg-stage {
+      position: absolute;
+      top: 49%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      width: min(46vw, 560px);
+      aspect-ratio: 351.41 / 311.05;
+      z-index: 1;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.55s var(--ease-studio);
+      will-change: transform, opacity;
+    }
+
+    .hero-svg-stage svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      filter: drop-shadow(0 0 50px rgba(234, 90, 66, 0.36)) drop-shadow(0 0 96px rgba(0, 119, 255, 0.28));
+    }
+
+    .fluted-glass-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.03) 0px,
+        rgba(255, 255, 255, 0) 6px,
+        rgba(0, 0, 0, 0.58) 15px,
+        rgba(255, 255, 255, 0.055) 19px
+      );
+      backdrop-filter: blur(10px) contrast(118%) saturate(130%);
+      -webkit-backdrop-filter: blur(10px) contrast(118%) saturate(130%);
+      transition: opacity 0.48s ease-out;
+    }
+
+    .hero-readability-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(12, 10, 11, 0.52) 0%, rgba(5, 2, 4, 0.10) 28%, rgba(12, 10, 11, 0.38) 68%, rgba(18, 17, 15, 0.96) 100%),
+        radial-gradient(circle at 20% 76%, rgba(12, 10, 11, 0.68) 0%, transparent 56%);
+    }
+
+    body.hero-phase-1 #fluted-logo-canvas,
+    body.hero-phase-1 .hero-svg-stage,
+    body.hero-phase-1 .fluted-glass-overlay,
+    body.reduced-motion #fluted-logo-canvas,
+    body.reduced-motion .hero-svg-stage,
+    body.reduced-motion .fluted-glass-overlay {
+      opacity: 1;
+    }
+
+    .hero-inner-frame {
+      position: relative;
+      z-index: 15;
+      width: 100%;
+      max-width: 1296px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .hero-main-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .hero-bottom-left-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .support-reveal-item {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+      transition: opacity 0.42s var(--ease-studio), transform 0.42s var(--ease-studio);
+      transition-delay: var(--support-delay, 0ms);
+    }
+    body.hero-phase-4 .support-reveal-item,
+    body.reduced-motion .support-reveal-item {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* Fixed 20px single-line height across EN and RU */
+    .brand-meta-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 20px;
+      max-width: 100%;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .brand-meta-line > span:last-child {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Identical display lockup sizing in EN and RU -> zero height change */
+    .brand-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin: 0;
+      max-width: 100%;
+    }
+
+    .sound-reveal-line {
+      position: relative;
+      display: inline-flex;
+      align-items: baseline;
+      overflow: hidden;
+      padding-right: 0.03em;
+      padding-bottom: 0.04em;
+      max-width: 100%;
+    }
+
+    .sound-reveal-text {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(36px, 4.5vw, 68px);
+      line-height: 0.96;
+      white-space: nowrap;
+      color: var(--text-primary);
+      clip-path: inset(0 100% 0 0);
+      transform: translate3d(-8px, 0, 0);
+      opacity: 0;
+      transition: clip-path 0.42s var(--ease-studio), transform 0.42s var(--ease-studio), opacity 0.2s ease;
+      transition-delay: var(--line-delay, 0ms);
+    }
+
+    .sound-reveal-bars {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 2;
+    }
+    .sound-reveal-bars span {
+      width: 2px;
+      height: 82%;
+      background: linear-gradient(180deg, rgba(0, 194, 255, 0), rgba(255, 255, 255, 0.9), rgba(234, 90, 66, 0.85), rgba(234, 90, 66, 0));
+      transform: scaleY(0.15);
+    }
+
+    body.hero-phase-3 .sound-reveal-text,
+    body.reduced-motion .sound-reveal-text {
+      clip-path: inset(0 0% 0 0);
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+    }
+    body.hero-phase-3 .sound-reveal-line.line-1 .sound-reveal-bars {
+      animation: barsCurtainSweep 0.54s var(--ease-studio) 0ms forwards;
+    }
+    body.hero-phase-3 .sound-reveal-line.line-2 .sound-reveal-bars {
+      animation: barsCurtainSweep 0.54s var(--ease-studio) 140ms forwards;
+    }
+    @keyframes barsCurtainSweep {
+      0% { opacity: 0.95; transform: translate3d(-15%, 0, 0); }
+      65% { opacity: 0.75; transform: translate3d(8%, 0, 0); }
+      100% { opacity: 0; transform: translate3d(25%, 0, 0); }
+    }
+
+    .word-sound-row {
+      display: inline-flex;
+      align-items: baseline;
+      margin-top: 4px;
+      max-width: 100%;
+    }
+
+    .hero-orange-dot {
+      display: inline-block;
+      width: clamp(8px, 0.95vw, 14px);
+      height: clamp(8px, 0.95vw, 14px);
+      background-color: var(--accent);
+      margin-left: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    body.hero-phase-3 .hero-orange-dot {
+      animation: dotSoundReveal 0.55s var(--ease-studio) 400ms forwards;
+    }
+    body.reduced-motion .hero-orange-dot { opacity: 1; transform: scale(1); }
+    @keyframes dotSoundReveal {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Fixed height container prevents vertical jump across EN & RU */
+    .hero-services-tagline {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      margin-top: 16px;
+      margin-bottom: 24px;
+      min-height: 24px;
+      display: flex;
+      align-items: center;
+      max-width: 48rem;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 44px;
+      padding: 0 20px;
+      border-radius: var(--radius-control);
+      background: var(--text-primary);
+      border: 1px solid var(--text-primary);
+      box-shadow: var(--highlight-top);
+      color: var(--bg-deepest);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 150ms var(--ease-studio), transform 120ms var(--ease-studio);
+    }
+    .btn-primary:hover {
+      background: #ffffff;
+    }
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 44px;
+      padding: 0 20px;
+      border-radius: var(--radius-control);
+      background: rgba(28, 26, 24, 0.85);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: var(--highlight-top);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 150ms var(--ease-studio), border-color 150ms var(--ease-studio), transform 120ms var(--ease-studio);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-raised);
+      border-color: rgba(239, 233, 222, 0.28);
+    }
+    .btn-secondary:active {
+      transform: scale(0.98);
+    }
+
+    /* HERO BOTTOM BAR */
+    .hero-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-top: 16px;
+      border-top: 1px solid var(--hairline);
+      gap: 16px;
+    }
+
+    .scroll-explore-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      white-space: nowrap;
+      transition: color 150ms var(--ease-studio);
+    }
+    .scroll-explore-link:hover {
+      color: var(--text-primary);
+    }
+
+    .hero-services-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .unlisted-pill {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    /* ==========================================================================
+       SHARED EDITORIAL SECTION STRUCTURE (UNSLOP STUDIO QUALITY)
+       ========================================================================== */
+    section.studio-section {
+      padding-top: 80px;
+      padding-bottom: 80px;
+      border-bottom: 1px solid var(--hairline);
+      background: var(--bg-page);
+      scroll-margin-top: 64px;
+    }
+
+    section.studio-section.alt-surface {
+      background: var(--bg-deepest);
+    }
+
+    .section-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 32rem);
+      align-items: end;
+      gap: 32px;
+      margin-bottom: 40px;
+      min-height: 76px;
+    }
+
+    .section-index {
+      display: inline-block;
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(28px, 3.2vw, 36px);
+      line-height: 1.14;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .section-lead {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      min-height: 48px;
+    }
+
+    /* ==========================================================================
+       01 BRIEF SECTION (CONSISTENT HEIGHT EN/RU)
+       ========================================================================== */
+    .brief-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--hairline);
+      align-items: start;
+    }
+
+    .brief-quote-col {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .director-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .director-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-primary);
+      text-decoration: none;
+      border-bottom: 1px solid var(--hairline-strong);
+      padding-bottom: 2px;
+      transition: border-color 150ms var(--ease-studio);
+    }
+    .director-link:hover {
+      border-color: var(--text-primary);
+    }
+
+    .director-quote {
+      font-family: var(--font-serif);
+      font-style: normal;
+      font-weight: 400;
+      font-size: clamp(21px, 2.05vw, 25px);
+      line-height: 1.44;
+      color: var(--text-primary);
+      min-height: 184px;
+    }
+
+    .brief-callout {
+      padding: 16px 20px;
+      border-radius: var(--radius-card);
+      background: var(--bg-card);
+      border: 1px solid var(--hairline);
+      border-left: 2px solid var(--accent);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+    }
+
+    .scope-strip {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 16px 20px;
+      border-radius: var(--radius-card);
+      background: var(--bg-card);
+      border: 1px solid var(--hairline);
+    }
+    .scope-tag {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+    .scope-desc {
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .pillars-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pillar-item {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr);
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--hairline);
+      align-items: baseline;
+      min-height: 108px;
+    }
+    .pillar-item:first-child { padding-top: 0; min-height: 88px; }
+    .pillar-item:last-child { border-bottom: none; padding-bottom: 0; min-height: 88px; }
+
+    .pillar-num {
+      font-size: 13px;
+      color: var(--accent);
+    }
+    .pillar-heading {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.3;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .pillar-copy {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       02 SYNCED VIDEO SCREENING ROOM
+       ========================================================================== */
+    .switcher-row {
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .nav-step-btn {
+      width: 44px;
+      border-radius: var(--radius-control);
+      background: var(--bg-card);
+      border: 1px solid var(--hairline-strong);
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color 150ms var(--ease-studio), color 150ms var(--ease-studio), transform 120ms var(--ease-studio);
+    }
+    .nav-step-btn:hover {
+      background: var(--bg-raised);
+      color: var(--text-primary);
+    }
+    .nav-step-btn:active {
+      transform: scale(0.98);
+    }
+
+    .variant-segment {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      padding: 4px;
+      border-radius: var(--radius-card);
+      background: var(--bg-card);
+      border: 1px solid var(--hairline);
+    }
+
+    .variant-tab {
+      height: 56px;
+      padding: 8px 16px;
+      border-radius: var(--radius-control);
+      border: 1px solid transparent;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text-secondary);
+      min-width: 0;
+      transition: background-color 150ms var(--ease-studio), border-color 150ms var(--ease-studio), color 150ms var(--ease-studio);
+    }
+    .variant-tab:hover {
+      background: rgba(239, 233, 222, 0.04);
+      color: var(--text-primary);
+    }
+    .variant-tab.active {
+      background: var(--bg-raised);
+      border-color: var(--hairline-strong);
+      box-shadow: var(--highlight-top);
+      color: var(--text-primary);
+    }
+
+    .variant-tab-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .variant-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .variant-tab.active .variant-dot {
+      background: var(--accent);
+    }
+
+    .variant-text-col {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .variant-code {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .variant-tab.active .variant-code {
+      color: var(--accent);
+    }
+
+    .variant-title {
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .variant-dur {
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .theater-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-panel);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .theater-header {
+      padding: 12px 20px;
+      background: var(--bg-deepest);
+      border-bottom: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .theater-file-info {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .cut-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cut-pill {
+      padding: 4px 10px;
+      border-radius: var(--radius-keycap);
+      background: var(--bg-raised);
+      border: 1px solid var(--hairline-strong);
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .cut-switch-btn {
+      height: 28px;
+      padding: 0 10px;
+      border-radius: var(--radius-keycap);
+      background: transparent;
+      border: 1px solid var(--hairline);
+      font-size: 12px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-studio), color 150ms var(--ease-studio);
+    }
+    .cut-switch-btn.active {
+      background: var(--bg-raised);
+      border-color: var(--hairline-strong);
+      color: var(--text-primary);
+    }
+
+    .video-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #0d0c0a;
+    }
+
+    .video-stage video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #0d0c0a;
+    }
+
+    .scene-ruler-bar {
+      padding: 12px 20px;
+      background: var(--bg-deepest);
+      border-top: 1px solid var(--hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .scene-ruler-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hitpoint-btns {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hitpoint-btn {
+      height: 28px;
+      padding: 0 10px;
+      border-radius: var(--radius-keycap);
+      background: var(--bg-card);
+      border: 1px solid var(--hairline-strong);
+      color: var(--text-secondary);
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background-color 150ms var(--ease-studio), color 150ms var(--ease-studio), border-color 150ms var(--ease-studio);
+    }
+    .hitpoint-btn:hover {
+      background: var(--bg-raised);
+      color: var(--text-primary);
+      border-color: var(--accent-border);
+    }
+
+    .inspector-card {
+      background: var(--bg-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-card);
+      padding: 16px 24px;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .inspector-main {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .inspector-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .active-tag {
+      padding: 4px 8px;
+      border-radius: var(--radius-keycap);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .inspector-specs {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .inspector-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .inspector-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-studio {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: var(--radius-control);
+      background: var(--bg-raised);
+      border: 1px solid var(--hairline-strong);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background-color 150ms var(--ease-studio), border-color 150ms var(--ease-studio), transform 120ms var(--ease-studio);
+    }
+    .btn-studio:hover {
+      background: var(--bg-hover);
+      border-color: rgba(239, 233, 222, 0.28);
+    }
+    .btn-studio:active {
+      transform: scale(0.98);
+    }
+    .btn-studio.btn-accent-border {
+      border-color: var(--accent-border);
+    }
+    .btn-studio.btn-accent-border:hover {
+      background: var(--accent-soft);
+    }
+
+    /* ==========================================================================
+       03 PURE SCORE MASTERS (LOCKED ALIGNMENT ACROSS ALL 3 TRACKS)
+       ========================================================================== */
+    .audio-overview-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 12px 20px;
+      margin-bottom: 16px;
+      border-radius: var(--radius-card);
+      background: var(--bg-card);
+      border: 1px solid var(--hairline);
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .audio-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Fixed 280px left column + fluid 1fr waveform deck + fixed 384px actions column */
+    .audio-row {
+      background: var(--bg-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-panel);
+      padding: 16px 24px;
+      min-height: 96px;
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr) 384px;
+      align-items: center;
+      gap: 24px;
+      transition: border-color 160ms var(--ease-studio), background-color 160ms var(--ease-studio);
+    }
+    .audio-row:hover {
+      border-color: var(--hairline-strong);
+    }
+    .audio-row.is-playing {
+      background: var(--bg-raised);
+      border-color: var(--accent-border);
+      box-shadow: var(--highlight-top);
+    }
+    .audio-row.is-favorite {
+      border-color: var(--positive-border);
+    }
+
+    .audio-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .audio-meta-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .audio-index {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .audio-row-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .audio-deck {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 16px;
+      border-radius: var(--radius-card);
+      background: var(--bg-deepest);
+      border: 1px solid var(--hairline);
+    }
+
+    .btn-play {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-control);
+      background: var(--text-primary);
+      border: none;
+      color: var(--bg-deepest);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background-color 150ms var(--ease-studio), transform 120ms var(--ease-studio);
+    }
+    .btn-play:hover {
+      background: #ffffff;
+    }
+    .btn-play:active {
+      transform: scale(0.96);
+    }
+    .audio-row.is-playing .btn-play {
+      background: var(--accent);
+      color: var(--bg-deepest);
+    }
+
+    .scrubber-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .waveform-scrubber {
+      position: relative;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .wf-bar {
+      flex: 1;
+      border-radius: 1px;
+      background: rgba(239, 233, 222, 0.20);
+      min-height: 6px;
+      transition: background-color 120ms var(--ease-studio);
+    }
+    .wf-bar.played {
+      background: var(--accent);
+    }
+
+    /* Evenly spaced 10s / 20s reference markers along the 30s track */
+    .wf-tick-10 {
+      position: absolute;
+      left: 33.33%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(239, 233, 222, 0.20);
+      pointer-events: none;
+    }
+    .wf-tick-20 {
+      position: absolute;
+      left: 66.66%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(239, 233, 222, 0.20);
+      pointer-events: none;
+    }
+
+    .waveform-ruler {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .audio-clock {
+      font-size: 12px;
+      color: var(--text-secondary);
+      min-width: 72px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .audio-row-actions {
+      width: 384px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: nowrap;
+    }
+
+    .btn-row {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 12px;
+      border-radius: var(--radius-control);
+      background: transparent;
+      border: 1px solid var(--hairline-strong);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background-color 150ms var(--ease-studio), color 150ms var(--ease-studio), border-color 150ms var(--ease-studio);
+    }
+    .btn-row:hover {
+      background: var(--bg-raised);
+      color: var(--text-primary);
+    }
+    .btn-row.is-fav {
+      background: var(--positive-soft);
+      border-color: var(--positive-border);
+      color: var(--text-primary);
+    }
+
+    .btn-row-watch { width: 96px; }
+    .btn-row-tc { width: 108px; }
+    .btn-row-fav { width: 120px; }
+    .btn-dl-square { width: 36px; padding: 0; }
+
+    /* ==========================================================================
+       04 REVIEW & FEEDBACK SHEET
+       ========================================================================== */
+    .feedback-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-panel);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.9fr);
+      gap: 32px;
+      align-items: start;
+    }
+
+    .form-block {
+      margin-bottom: 24px;
+    }
+    .form-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .field-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .field-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .field-value-badge {
+      padding: 4px 8px;
+      border-radius: var(--radius-keycap);
+      background: var(--bg-raised);
+      border: 1px solid var(--hairline-strong);
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .choice-btn {
+      height: 36px;
+      padding: 0 14px;
+      border-radius: var(--radius-control);
+      background: var(--bg-deepest);
+      border: 1px solid var(--hairline);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-studio), border-color 150ms var(--ease-studio), color 150ms var(--ease-studio);
+    }
+    .choice-btn:hover {
+      border-color: var(--hairline-strong);
+      color: var(--text-primary);
+    }
+    .choice-btn.active {
+      background: var(--bg-raised);
+      border-color: var(--accent);
+      box-shadow: var(--highlight-top);
+      color: var(--text-primary);
+    }
+
+    .note-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .note-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 32px;
+      padding: 0 12px;
+      border-radius: var(--radius-control);
+      background: var(--bg-deepest);
+      border: 1px solid var(--hairline);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-studio), border-color 150ms var(--ease-studio), color 150ms var(--ease-studio);
+    }
+    .note-tab.active {
+      background: var(--bg-raised);
+      border-color: var(--hairline-strong);
+      color: var(--text-primary);
+    }
+
+    .note-saved-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--positive);
+      display: none;
+    }
+    .note-tab.has-note .note-saved-dot {
+      display: inline-block;
+    }
+
+    .editor-frame {
+      border-radius: var(--radius-card);
+      border: 1px solid var(--hairline-strong);
+      background: var(--bg-deepest);
+      overflow: hidden;
+    }
+
+    .editor-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 12px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .editor-status {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .btn-tc-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 28px;
+      padding: 0 10px;
+      border-radius: var(--radius-keycap);
+      background: var(--bg-raised);
+      border: 1px solid var(--hairline-strong);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 150ms var(--ease-studio), background-color 150ms var(--ease-studio);
+    }
+    .btn-tc-inline:hover {
+      border-color: var(--accent-border);
+      background: var(--bg-hover);
+    }
+
+    .studio-textarea,
+    .studio-input {
+      width: 100%;
+      background: var(--bg-deepest);
+      border: 1px solid var(--hairline-strong);
+      border-radius: var(--radius-control);
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.56;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 150ms var(--ease-studio);
+    }
+
+    .editor-frame .studio-textarea {
+      border: none;
+      border-radius: 0;
+    }
+
+    .studio-textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+    .studio-textarea::placeholder,
+    .studio-input::placeholder {
+      color: var(--text-muted);
+    }
+    .studio-textarea:focus,
+    .studio-input:focus {
+      border-color: var(--accent);
+    }
+
+    .author-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .author-chip {
+      height: 28px;
+      padding: 0 10px;
+      border-radius: var(--radius-keycap);
+      background: var(--bg-deepest);
+      border: 1px solid var(--hairline);
+      color: var(--text-secondary);
+      font-family: var(--font-body);
+      font-size: 12px;
+      cursor: pointer;
+      transition: border-color 150ms var(--ease-studio), color 150ms var(--ease-studio);
+    }
+    .author-chip:hover {
+      border-color: var(--hairline-strong);
+      color: var(--text-primary);
+    }
+
+    .dispatch-panel {
+      background: var(--bg-deepest);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-card);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dispatch-eyebrow {
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .dispatch-heading {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .dispatch-desc {
+      font-size: 13px;
+      line-height: 1.56;
+      color: var(--text-secondary);
+    }
+
+    .summary-box {
+      background: var(--bg-card);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-control);
+      padding: 12px 16px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      max-height: 224px;
+      overflow-y: auto;
+    }
+
+    .dispatch-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-dispatch {
+      width: 100%;
+      height: 44px;
+      padding: 0 16px;
+      border-radius: var(--radius-control);
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-studio), border-color 150ms var(--ease-studio), transform 120ms var(--ease-studio);
+    }
+    .btn-dispatch:active {
+      transform: scale(0.98);
+    }
+
+    .btn-dispatch-primary {
+      background: var(--text-primary);
+      color: var(--bg-deepest);
+      box-shadow: var(--highlight-top);
+    }
+    .btn-dispatch-primary:hover {
+      background: #ffffff;
+    }
+
+    .btn-dispatch-secondary {
+      background: var(--bg-raised);
+      border-color: var(--hairline-strong);
+      color: var(--text-primary);
+      box-shadow: var(--highlight-top);
+    }
+    .btn-dispatch-secondary:hover {
+      background: var(--bg-hover);
+    }
+
+    .btn-dispatch-subtle {
+      background: transparent;
+      border-color: var(--hairline);
+      color: var(--text-secondary);
+    }
+    .btn-dispatch-subtle:hover {
+      border-color: var(--hairline-strong);
+      color: var(--text-primary);
+    }
+
+    /* Toast */
+    .toast-bar {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 90;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: var(--radius-control);
+      background: var(--bg-raised);
+      border: 1px solid var(--hairline-strong);
+      box-shadow: var(--highlight-top);
+      color: var(--text-primary);
+      font-size: 13px;
+      opacity: 0;
+      transform: translate3d(0, 12px, 0);
+      pointer-events: none;
+      transition: opacity 200ms var(--ease-studio), transform 200ms var(--ease-studio);
+    }
+    .toast-bar.show {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* Footer */
+    .site-footer {
+      padding-top: 32px;
+      padding-bottom: 32px;
+      background: var(--bg-deepest);
+    }
+
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: color 150ms var(--ease-studio);
+    }
+    .footer-link:hover {
+      color: var(--accent);
+    }
+
+    /* ==========================================================================
+       RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 1120px) {
+      .hero-wanda-pulse {
+        height: auto;
+        min-height: 700px;
+        max-height: none;
+      }
+      .section-top,
+      .brief-grid,
+      .feedback-panel {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px;
+      }
+      .audio-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+        min-height: 0;
+      }
+      .audio-row-actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      .btn-row-watch,
+      .btn-row-tc,
+      .btn-row-fav {
+        width: auto;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .header-nav,
+      .header-actions,
+      .brand-divider,
+      .room-context {
+        display: none;
+      }
+      .mobile-actions {
+        display: inline-flex;
+      }
+      .variant-segment {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell,
+      .header-inner,
+      .footer-inner {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .hero-wanda-pulse {
+        height: 100svh;
+        min-height: 700px;
+        max-height: 880px;
+        padding: 80px 20px 20px;
+      }
+      .brand-logo-img {
+        height: 18px;
+      }
+      .header-inner {
+        gap: 12px;
+      }
+      .hero-svg-stage {
+        width: min(80vw, 310px);
+        top: 34%;
+      }
+      .brand-meta-line {
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+      .sound-reveal-text {
+        font-size: clamp(24px, 7.2vw, 36px);
+      }
+      .hero-services-tagline {
+        min-height: 44px;
+        font-size: 14px;
+        margin-top: 12px;
+        margin-bottom: 16px;
+      }
+      .unlisted-pill,
+      .nav-step-btn {
+        display: none;
+      }
+      section.studio-section {
+        padding-top: 48px;
+        padding-bottom: 48px;
+      }
+      .director-quote,
+      .brief-callout,
+      .pillar-item,
+      .inspector-card {
+        min-height: 0;
+        height: auto;
+      }
+      .feedback-panel {
+        padding: 20px;
+      }
+      .inspector-card,
+      .audio-row {
+        padding: 16px;
+      }
+      .audio-deck {
+        padding: 12px;
+        gap: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PERSISTENT STICKY TOP NAVIGATION -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <a href="#top" class="brand-logo-link" aria-label="26Sound Studio">
+          <img src="assets/logo-26sound-horizontal.png" alt="26Sound Studio" class="brand-logo-img" width="1024" height="159" />
+        </a>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="room-context" data-i18n="nav.room">Tele2 · Rodnaya Rech</span>
+      </div>
+
+      <nav class="header-nav" aria-label="Primary Navigation">
+        <a href="#brief" class="nav-link" data-i18n="nav.brief">01 Brief</a>
+        <a href="#video-screening" class="nav-link" data-i18n="nav.video">02 Screening</a>
+        <a href="#audio-masters" class="nav-link" data-i18n="nav.audio">03 Audio tracks</a>
+        <a href="#feedback" class="nav-link" data-i18n="nav.feedback">04 Feedback</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="lang-segment" role="group" aria-label="Language switcher">
+          <button type="button" class="lang-btn active" data-lang-btn="en" onclick="setLanguage('en')">EN</button>
+          <button type="button" class="lang-btn" data-lang-btn="ru" onclick="setLanguage('ru')">RU</button>
+        </div>
+        <a href="#video-screening" class="btn-header-cta">
+          <span data-i18n="nav.cta">Start screening</span>
+          <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        </a>
+      </div>
+
+      <div class="mobile-actions">
+        <div class="lang-segment" role="group" aria-label="Mobile language switcher">
+          <button type="button" class="lang-btn active" data-lang-btn="en" onclick="setLanguage('en')">EN</button>
+          <button type="button" class="lang-btn" data-lang-btn="ru" onclick="setLanguage('ru')">RU</button>
+        </div>
+        <button type="button" class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Open menu">
+          <span data-i18n="nav.menu">Menu</span>
+          <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16"/><path d="M4 16h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER -->
+  <div class="mobile-drawer-backdrop" onclick="closeMobileMenu()" aria-hidden="true"></div>
+  <aside class="mobile-drawer" role="dialog" aria-label="Mobile navigation">
+    <div>
+      <div class="drawer-top">
+        <img src="assets/logo-26sound-horizontal.png" alt="26Sound Studio" style="height: 20px; width: auto;" />
+        <button type="button" class="drawer-close" onclick="closeMobileMenu()">
+          <span data-i18n="nav.close">Close</span>
+          <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <nav class="drawer-links" aria-label="Mobile sections">
+        <a href="#brief" class="drawer-link" onclick="closeMobileMenu()"><span data-i18n="nav.brief.label">Creative brief</span><span class="drawer-link-num tabular">01</span></a>
+        <a href="#video-screening" class="drawer-link" onclick="closeMobileMenu()"><span data-i18n="nav.video.label">Screening room</span><span class="drawer-link-num tabular">02</span></a>
+        <a href="#audio-masters" class="drawer-link" onclick="closeMobileMenu()"><span data-i18n="nav.audio.label">Audio tracks</span><span class="drawer-link-num tabular">03</span></a>
+        <a href="#feedback" class="drawer-link" onclick="closeMobileMenu()"><span data-i18n="nav.feedback.label">Feedback</span><span class="drawer-link-num tabular">04</span></a>
+      </nav>
+    </div>
+    <div class="drawer-footer">
+      <span data-i18n="footer.conf">Unlisted client screening · noindex</span>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       HERO SLIDE: ANIMATED 26SOUND PULSE PRISM BARS (FIXED HEIGHT EN/RU)
+       ======================================================================== -->
+  <section id="top" class="hero-wanda-pulse">
+    <canvas id="fluted-logo-canvas" aria-hidden="true"></canvas>
+
+    <!-- Animated Ribbon "26" Vector Emblem -->
+    <div class="hero-svg-stage" id="heroSvgStage" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 351.41 311.05">
+        <defs>
+          <linearGradient id="flowGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#EA5A42">
+              <animate attributeName="stop-color" values="#EA5A42;#0077FF;#FF3300;#EA5A42" dur="5.5s" repeatCount="indefinite" />
+            </stop>
+            <stop offset="50%" stop-color="#FF3300">
+              <animate attributeName="stop-color" values="#FF3300;#EA5A42;#00C2FF;#FF3300" dur="5.5s" repeatCount="indefinite" />
+            </stop>
+            <stop offset="100%" stop-color="#0077FF">
+              <animate attributeName="stop-color" values="#0077FF;#FFFFFF;#EA5A42;#0077FF" dur="5.5s" repeatCount="indefinite" />
+            </stop>
+          </linearGradient>
+
+          <linearGradient id="flowGrad2" x1="226.61" y1="222.54" x2="294.93" y2="45.39" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#090408" />
+            <stop offset="55%" stop-color="#0077FF">
+              <animate attributeName="stop-color" values="#0077FF;#EA5A42;#00C2FF;#0077FF" dur="5.5s" repeatCount="indefinite" />
+            </stop>
+            <stop offset="100%" stop-color="#FFFFFF">
+              <animate attributeName="stop-color" values="#FFFFFF;#FF3300;#0077FF;#FFFFFF" dur="5.5s" repeatCount="indefinite" />
+            </stop>
+          </linearGradient>
+
+          <linearGradient id="flowGrad3" x1="135.99" y1="201.38" x2="342.03" y2="302.67" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#090408" />
+            <stop offset="45%" stop-color="#EA5A42">
+              <animate attributeName="stop-color" values="#EA5A42;#0077FF;#FF3300;#EA5A42" dur="5.5s" repeatCount="indefinite" />
+            </stop>
+            <stop offset="100%" stop-color="#00C2FF">
+              <animate attributeName="stop-color" values="#00C2FF;#EA5A42;#FFFFFF;#00C2FF" dur="5.5s" repeatCount="indefinite" />
+            </stop>
+          </linearGradient>
+
+          <linearGradient id="flowGrad4" x1="87.19" y1="127.76" x2="307.45" y2="323.03" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#090408" />
+            <stop offset="38%" stop-color="#FF3300">
+              <animate attributeName="stop-color" values="#FF3300;#0077FF;#EA5A42;#FF3300" dur="5.5s" repeatCount="indefinite" />
+            </stop>
+            <stop offset="85%" stop-color="#0077FF">
+              <animate attributeName="stop-color" values="#0077FF;#FF5500;#00C2FF;#0077FF" dur="5.5s" repeatCount="indefinite" />
+            </stop>
+            <stop offset="100%" stop-color="#FFFFFF" />
+          </linearGradient>
+        </defs>
+
+        <g>
+          <path fill="url(#flowGrad1)" d="M209.92,66.56A85.89,85.89,0,0,0,65.81,24.85l-.65.65a85.86,85.86,0,0,0,4.06,124.59l28.65-28.65A45.44,45.44,0,1,1,171.7,86c0,.32,0,.64,0,1a2.35,2.35,0,0,1,0,.26c0,.37,0,.74,0,1.1s0,.74-.07,1.11-.06.76-.1,1.13-.06.63-.1.95c0,0,0,0,0,.05,0,.36-.09.71-.14,1.07s-.11.71-.17,1.06-.13.71-.19,1.06l-.1.45c0,.2-.08.4-.12.59l-.12.52-.12.52-.12.47q-.14.56-.3,1.11c-.1.37-.22.74-.33,1.1a.31.31,0,0,1,0,.08c-.08.26-.16.51-.25.76s-.19.57-.29.86l-.18.47c-.07.23-.16.45-.25.67l0,.09c-.1.27-.21.53-.32.8l-.15.35c-.09.22-.18.44-.28.65s-.12.29-.19.43-.18.39-.27.58a1.51,1.51,0,0,1-.12.26c-.13.3-.28.59-.42.87,0,0,0,.1-.07.14l-.26.5c-.25.48-.5.94-.77,1.4-.13.24-.27.49-.41.72l-.1.15c-.12.22-.26.45-.4.67s-.4.64-.61,1l-.63.94-.55.77-.47.63c-.16.22-.32.43-.49.64l-.14.19-.47.58c-.38.47-.76.92-1.16,1.37l-.21.23c-.17.2-.35.4-.54.59l-.34.37-.43.45-.06.07,0,0-.26.27-.05,0-.1.1-.12.12-.22.22-4.19,4.19L0,276.49H57.05L186.78,146.76c.06,0,.11-.11.17-.17l.17-.17.19-.19a86,86,0,0,0,22.61-79.67Z"/>
+          <path fill="url(#flowGrad2)" d="M206.63,162.78a86.12,86.12,0,0,1,78.3-21.25l25.95-25.94V58.53Z"/>
+          <path fill="url(#flowGrad3)" d="M326.3,286l-.24.24c-.88.87-1.77,1.72-2.69,2.55-.41.38-.83.75-1.25,1.12s-1.11,1-1.68,1.43l-.76.63c-.77.62-1.55,1.24-2.34,1.83-.26.2-.51.39-.77.57-.52.39-1,.77-1.57,1.14-.29.21-.59.41-.89.61l-.18.13c-.66.45-1.33.89-2,1.33l-1,.66-.1.06-1.07.66h0l-1.1.64-.39.23-.89.5c-.4.23-.81.45-1.21.66l-1.22.65-1.09.55c-1.29.64-2.6,1.25-3.92,1.83l-1.26.53c-.41.18-.82.34-1.24.51l-.06,0q-.61.25-1.23.48l-1.35.5-1.14.41-.29.1-1.21.4-1.28.4-1.22.37-.8.22c-.25.08-.5.15-.76.21l-.88.23-.38.1-.67.17-.78.19-1.1.25c-.6.14-1.21.26-1.82.38-.41.08-.82.17-1.24.24l-1.26.22-1.27.2c-.25,0-.5.08-.76.11l-.94.14-1.32.16c-.57.07-1.15.13-1.72.18l-1.26.12-1.76.12-.82.05-.55,0-1.23.05h-5.41a85.88,85.88,0,0,1-81-66.48l8.43-8.43,42.83-42.83a45.44,45.44,0,0,0,64.51,64l0,0,13.17,13.17,6,6,9.41,9.4Z"/>
+          <path fill="url(#flowGrad4)" d="M351.41,222.27v5.9c-.09,2.69-.31,5.35-.64,8,0,.45-.12.91-.18,1.37,0,0,0,.06,0,.09-.06.44-.13.89-.2,1.33l-.24,1.39v.09c-.08.45-.17.91-.26,1.37-.17.89-.36,1.78-.56,2.66q-.24,1-.51,2.1c0,.18-.09.37-.14.55s0,.09,0,.14c-.11.42-.22.84-.34,1.26l-.06.21s0,0,0,0c-.1.37-.21.74-.32,1.1s-.3,1-.46,1.5l-.09.27c-.13.42-.27.85-.42,1.26,0,0,0,.06,0,.09l-.06.14c-.12.38-.25.75-.39,1.13l-.08.22q-.25.72-.54,1.44c-.1.28-.21.56-.32.84s-.31.77-.47,1.15a1.77,1.77,0,0,1-.06.17l-.45,1.07,0,.1c-.13.31-.26.62-.4.92s-.37.84-.57,1.25-.32.7-.49,1c-.28.59-.58,1.18-.88,1.77-.13.27-.28.54-.41.81-.25.47-.5.94-.76,1.4l-.57,1-.18.31c0,.08-.09.16-.14.24l-.36.63-.14.24-.55.92-.08.14c-.21.34-.41.67-.63,1,0,0,0,0,0,0l-.72,1.13-.75,1.13-.38.56-.08.11-.31.45-.77,1.08v0c-.26.37-.53.73-.8,1.09a86.75,86.75,0,0,1-8.07,9.35l-.11.11-.05-.06-9.41-9.4-6-6-13.17-13.17,0,0,.6-.61.36-.39.61-.66c.21-.24.43-.48.63-.72.46-.53.9-1.07,1.33-1.62.16-.19.31-.39.46-.6l.46-.6c.29-.41.59-.82.87-1.24s.57-.85.85-1.29l.4-.65.39-.65c.34-.57.66-1.15,1-1.74.16-.29.32-.59.46-.89a.16.16,0,0,0,0-.07c.16-.32.32-.65.47-1s.32-.68.47-1,.3-.69.44-1,.21-.52.31-.78.21-.52.3-.79.19-.53.28-.79.13-.36.19-.55.11-.33.16-.5.15-.48.23-.72c.22-.75.43-1.52.62-2.29a45.46,45.46,0,0,0-44.13-56.29H264l-.77,0H263l-.83.05-.36,0-1,.1-1.13.13-1.05.14-.78.13-.62.1-.45.09-.57.11c-.62.13-1.23.27-1.84.42l-.81.21c-.28.08-.56.15-.83.24l-.09,0c-.85.25-1.68.52-2.51.82l-.84.31c-.26.09-.52.2-.78.3l-.2.08-.59.25c-.31.12-.6.26-.9.39l-1,.46c-.31.14-.62.3-.93.46l-.11,0-.66.34-.44.24c-.58.31-1.14.64-1.7,1l-.93.57-.88.58q-.47.3-.93.63l-.76.55-.06,0c-.22.16-.44.32-.65.49l-.55.43c-.46.36-.92.74-1.37,1.13l-.57.5c-.27.23-.53.47-.79.71l-.46.44-.6.57,0,0h0l0,0-.12.11-.1.11-42.83,42.83-8.43,8.43L150,276.49H57.05L97.4,236.14h35.87l71.61-71.61.32-.32.8-.8.63-.63a85.87,85.87,0,0,1,144.78,59.49Z"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="fluted-glass-overlay" aria-hidden="true"></div>
+    <div class="hero-readability-scrim" aria-hidden="true"></div>
+
+    <!-- HERO MAIN STAGE + BOTTOM BAR -->
+    <div class="hero-inner-frame">
+      <div class="hero-main-stage">
+        <div class="hero-bottom-left-brand">
+          <div class="brand-meta-line support-reveal-item" style="--support-delay: 0ms;">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span data-i18n="hero.context">Tele2 New Year 2027 · Private client review</span>
+          </div>
+
+          <h1 class="brand-lockup">
+            <span class="sound-reveal-line line-1">
+              <span class="sound-reveal-text" style="--line-delay: 0ms;">TELE2:</span>
+              <span class="sound-reveal-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+            </span>
+            <span class="word-sound-row">
+              <span class="sound-reveal-line line-2">
+                <span class="sound-reveal-text" style="--line-delay: 140ms;" data-i18n="hero.titleLine2">PRICE FREEZE</span>
+                <span class="sound-reveal-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+              </span>
+              <span class="hero-orange-dot" aria-hidden="true"></span>
+            </span>
+          </h1>
+
+          <p class="hero-services-tagline support-reveal-item" style="--support-delay: 100ms;" data-i18n="hero.subtitle">
+            3 original score concepts · Directed by Aleksander Bach · Rodnaya Rech
+          </p>
+
+          <div class="hero-cta-row support-reveal-item" style="--support-delay: 180ms;">
+            <a href="#video-screening" class="btn-primary">
+              <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              <span data-i18n="hero.ctaVideo">Watch with picture</span>
+            </a>
+            <a href="#audio-masters" class="btn-secondary">
+              <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg>
+              <span data-i18n="hero.ctaAudio">Listen to audio tracks</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Control Strip -->
+      <div class="hero-bottom-bar support-reveal-item" style="--support-delay: 300ms;">
+        <a href="#brief" class="scroll-explore-link">
+          <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+          <span data-i18n="hero.scroll">Scroll to explore</span>
+        </a>
+
+        <div class="hero-services-controls">
+          <span class="unlisted-pill" data-i18n="hero.unlisted">Private link · Unlisted review</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       01 CREATIVE BRIEF
+       ======================================================================== -->
+  <section id="brief" class="studio-section alt-surface">
+    <div class="shell">
+      <div class="section-top">
+        <div>
+          <span class="section-index tabular" data-i18n="brief.eyebrow">01 · Creative brief</span>
+          <h2 class="section-title" data-i18n="brief.title">Director’s music brief</h2>
+        </div>
+        <p class="section-lead" data-i18n="brief.lead">
+          Three original musical directions written to Aleksander Bach’s brief for Tele2’s New Year “Price Freeze 2027” campaign.
+        </p>
+      </div>
+
+      <div class="brief-grid">
+        <div class="brief-quote-col">
+          <div class="director-row">
+            <span data-i18n="brief.directorLabel">Director: Aleksander (Ali) Bach</span>
+            <span aria-hidden="true">·</span>
+            <a href="https://aleksanderbach.com" target="_blank" rel="noopener noreferrer" class="director-link">
+              <span>aleksanderbach.com</span>
+              <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+            </a>
+          </div>
+
+          <blockquote class="director-quote" data-i18n="brief.quote">
+            “Strong recognisable melody for the campaign. Cinematic, powerful, and unique — people watch the film and recognise the music every time. The music is big; the humor comes from within (their acting).”
+          </blockquote>
+
+          <div class="brief-callout" data-i18n="brief.refNote">
+            Mood references are for emotional scale only — all three demos feature original themes written from scratch for campaign recall.
+          </div>
+
+          <div class="scope-strip">
+            <span class="scope-tag" data-i18n="brief.scopeTag">Stage 01 deliverables</span>
+            <span class="scope-desc" data-i18n="brief.scopeText">3 demo concepts (video sync + stereo master) → select 1 direction to finalize</span>
+          </div>
+        </div>
+
+        <div class="pillars-list">
+          <div class="pillar-item">
+            <span class="pillar-num tabular">01</span>
+            <div>
+              <h3 class="pillar-heading" data-i18n="brief.p1.title">Cinematic weight</h3>
+              <p class="pillar-copy" data-i18n="brief.p1.desc">Orchestral scale and serious dramatic weight give the commercial a larger-than-life theatrical frame.</p>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <span class="pillar-num tabular">02</span>
+            <div>
+              <h3 class="pillar-heading" data-i18n="brief.p2.title">Memorable melodic hook</h3>
+              <p class="pillar-copy" data-i18n="brief.p2.desc">Each demo centers on a distinct melodic motif so audiences recognize the Tele2 campaign within the opening bars.</p>
+            </div>
+          </div>
+          <div class="pillar-item">
+            <span class="pillar-num tabular">03</span>
+            <div>
+              <h3 class="pillar-heading" data-i18n="brief.p3.title">Serious score, deadpan comedy</h3>
+              <p class="pillar-copy" data-i18n="brief.p3.desc">Scored completely straight so the humor emerges organically through contrast with the actors’ deadpan performances.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       02 SYNCED VIDEO SCREENING ROOM
+       ======================================================================== -->
+  <section id="video-screening" class="studio-section">
+    <div class="shell">
+      <div class="section-top">
+        <div>
+          <span class="section-index tabular" data-i18n="video.eyebrow">02 · Synced screening</span>
+          <h2 class="section-title" data-i18n="video.title">Compare tracks with picture</h2>
+        </div>
+        <p class="section-lead" data-i18n="video.lead">
+          Switch seamlessly between all three demos locked to the edit without losing your timestamp, log timecoded notes, or download files.
+        </p>
+      </div>
+
+      <div class="switcher-row">
+        <button type="button" class="nav-step-btn" onclick="prevVariant(true)" aria-label="Previous demo">
+          <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <div class="variant-segment" id="variantTabs" role="tablist" aria-label="Video demo variants"></div>
+        <button type="button" class="nav-step-btn" onclick="nextVariant(true)" aria-label="Next demo">
+          <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      <div class="theater-panel">
+        <div class="theater-header">
+          <div class="theater-file-info">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="tabular" id="theaterFilename">Screening · TELE2_HEROIC_DEMO_01.mp4</span>
+          </div>
+          <div class="cut-controls" id="cutSwitchContainer">
+            <span class="cut-pill tabular" id="theaterCutBadge">Master cut · Synced</span>
+          </div>
+        </div>
+
+        <div class="video-stage">
+          <video id="masterVideo" controls playsinline preload="metadata">
+            <source id="videoSource" src="media/TELE2_HEROIC_DEMO_01.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <div class="scene-ruler-bar">
+          <span class="scene-ruler-label" data-i18n="video.rulerHint">Jump to timestamp</span>
+          <div class="hitpoint-btns">
+            <button type="button" class="hitpoint-btn tabular" onclick="seekVideoTo(0)">0:00</button>
+            <button type="button" class="hitpoint-btn tabular" onclick="seekVideoTo(8)">0:08</button>
+            <button type="button" class="hitpoint-btn tabular" onclick="seekVideoTo(16)">0:16</button>
+            <button type="button" class="hitpoint-btn tabular" onclick="seekVideoTo(24)">0:24</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inspector-card">
+        <div class="inspector-main">
+          <div class="inspector-meta">
+            <span class="active-tag tabular" id="nowCounterPill">01 / 03 · Active demo</span>
+            <span class="inspector-specs tabular" id="nowSpecs">TELE2_HEROIC_DEMO_01.mp4</span>
+          </div>
+          <h3 class="inspector-title" id="nowTitle">Demo 1</h3>
+        </div>
+
+        <div class="inspector-actions">
+          <button type="button" class="btn-studio btn-accent-border" onclick="logVideoTimecode()">
+            <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span data-i18n="video.logTc">Log timecode</span>
+            <span class="tabular" id="liveVideoClock">0:00</span>
+          </button>
+
+          <a id="downloadVideoBtn" href="media/TELE2_HEROIC_DEMO_01.mp4" download class="btn-studio">
+            <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            <span data-i18n="video.dlVideo">Video MP4</span>
+          </a>
+
+          <a id="downloadAudioFromVideoBtn" href="media/TELE2_HEROIC_DEMO_01.mp3" download class="btn-studio">
+            <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            <span data-i18n="video.dlAudio">Audio MP3</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       03 STANDALONE PURE AUDIO MASTERS (PIXEL-ALIGNED ROWS)
+       ======================================================================== -->
+  <section id="audio-masters" class="studio-section alt-surface">
+    <div class="shell">
+      <div class="section-top">
+        <div>
+          <span class="section-index tabular" data-i18n="audio.eyebrow">03 · Pure audio tracks</span>
+          <h2 class="section-title" data-i18n="audio.title">Listen without picture</h2>
+        </div>
+        <p class="section-lead" data-i18n="audio.lead">
+          Compare melody, dynamics, and mix balance in isolation from picture. Click anywhere on a waveform to jump to any section of a track.
+        </p>
+      </div>
+
+      <div class="audio-overview-bar">
+        <span data-i18n="audio.overviewHint">Click any bar along a waveform to jump directly to that point in the track</span>
+        <span class="tabular" data-i18n="audio.overviewSpecs">3 demos · 320 kbps MP3</span>
+      </div>
+
+      <div class="audio-stack" id="audioGrid"></div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       04 REVIEW & TELEGRAM WORKING GROUP FEEDBACK
+       ======================================================================== -->
+  <section id="feedback" class="studio-section">
+    <div class="shell">
+      <div class="section-top">
+        <div>
+          <span class="section-index tabular" data-i18n="fb.eyebrow">04 · Selection &amp; notes</span>
+          <h2 class="section-title" data-i18n="fb.title">Direction and feedback</h2>
+        </div>
+        <p class="section-lead" data-i18n="fb.lead">
+          Select your preferred direction, collect timecoded notes per demo, and share a structured summary directly into your Telegram working group.
+        </p>
+      </div>
+
+      <div class="feedback-panel">
+        <div>
+          <div class="form-block">
+            <div class="field-header">
+              <span class="field-label" data-i18n="fb.step1">1. Preferred direction</span>
+              <span class="field-value-badge tabular" id="selectedDirectionEcho">Demo 1</span>
+            </div>
+            <div class="pill-row" id="directionPills">
+              <button type="button" class="choice-btn active" data-dir="Demo 1" onclick="selectDirection('Demo 1', this)" data-i18n="fb.dir1">Demo 1</button>
+              <button type="button" class="choice-btn" data-dir="Demo 2" onclick="selectDirection('Demo 2', this)" data-i18n="fb.dir2">Demo 2</button>
+              <button type="button" class="choice-btn" data-dir="Demo 3" onclick="selectDirection('Demo 3', this)" data-i18n="fb.dir3">Demo 3</button>
+              <button type="button" class="choice-btn" data-dir="Hybrid (Combine)" onclick="selectDirection('Hybrid (Combine)', this)" data-i18n="fb.dirHybrid">Hybrid (Combine)</button>
+              <button type="button" class="choice-btn" data-dir="Need Revisions" onclick="selectDirection('Need Revisions', this)" data-i18n="fb.dirAdjust">Need revisions</button>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <div class="field-header">
+              <span class="field-label" data-i18n="fb.step2">2. Timecoded notes by demo</span>
+            </div>
+
+            <div class="note-tabs" id="commentTabsBar">
+              <button type="button" class="note-tab active" data-note-tab="1" onclick="switchNoteTab(1)">
+                <span class="note-saved-dot"></span>
+                <span data-i18n="fb.tab1">Demo 1</span>
+              </button>
+              <button type="button" class="note-tab" data-note-tab="2" onclick="switchNoteTab(2)">
+                <span class="note-saved-dot"></span>
+                <span data-i18n="fb.tab2">Demo 2</span>
+              </button>
+              <button type="button" class="note-tab" data-note-tab="3" onclick="switchNoteTab(3)">
+                <span class="note-saved-dot"></span>
+                <span data-i18n="fb.tab3">Demo 3</span>
+              </button>
+            </div>
+
+            <div class="editor-frame">
+              <div class="editor-toolbar">
+                <span class="editor-status tabular" id="activeNoteLabel">Editing notes for Demo 1</span>
+                <button type="button" class="btn-tc-inline" onclick="insertActivePlayerTimecode()">
+                  <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span data-i18n="fb.insertTc">Insert player timecode</span>
+                </button>
+              </div>
+              <textarea id="variantNoteInput" class="studio-textarea" oninput="handleVariantNoteInput()"></textarea>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <div class="field-header">
+              <label for="overallNoteInput" class="field-label" data-i18n="fb.step3">3. Overall impressions and concept notes</label>
+            </div>
+            <textarea id="overallNoteInput" class="studio-textarea" oninput="saveAndRefreshSummary()"></textarea>
+          </div>
+
+          <div class="form-block">
+            <div class="field-header">
+              <label for="authorInput" class="field-label" data-i18n="fb.step4">4. Reviewer name or role</label>
+            </div>
+            <div class="author-chips">
+              <button type="button" class="author-chip" onclick="setAuthor('Aleksander Bach (Director)')">Aleksander Bach</button>
+              <button type="button" class="author-chip" onclick="setAuthor('Rodnaya Rech Producer')">Rodnaya Rech Producer</button>
+              <button type="button" class="author-chip" onclick="setAuthor('Tele2 Brand Team')">Tele2 Team</button>
+            </div>
+            <input type="text" id="authorInput" class="studio-input" oninput="saveAndRefreshSummary()" />
+          </div>
+        </div>
+
+        <aside class="dispatch-panel">
+          <div>
+            <span class="dispatch-eyebrow" data-i18n="fb.dispatchTag">Working group workflow</span>
+            <h3 class="dispatch-heading" data-i18n="fb.dispatchTitle">Send or export review</h3>
+          </div>
+
+          <p class="dispatch-desc" data-i18n="fb.dispatchNote">
+            “Share to Telegram group” opens Telegram’s native chat picker so you can post straight into your working group chat instead of a 1-on-1 DM.
+          </p>
+
+          <div class="summary-box tabular" id="summaryPreviewBox"></div>
+
+          <div class="dispatch-btns">
+            <button type="button" class="btn-dispatch btn-dispatch-primary" onclick="shareToTelegramGroup()">
+              <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+              <span data-i18n="fb.btnTg">Share to Telegram group</span>
+            </button>
+
+            <button type="button" class="btn-dispatch btn-dispatch-secondary" onclick="copyReviewToClipboard()">
+              <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              <span data-i18n="fb.btnCopy">Copy review for chat</span>
+            </button>
+
+            <button type="button" class="btn-dispatch btn-dispatch-subtle" onclick="downloadReviewTxt()">
+              <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              <span data-i18n="fb.btnTxt">Download report (.txt)</span>
+            </button>
+
+            <button type="button" id="webhookSubmitBtn" class="btn-dispatch btn-dispatch-secondary" style="display: none;" onclick="sendViaWebhook()">
+              <span data-i18n="fb.btnWebhook">Post directly to group</span>
+            </button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div data-i18n="footer.copy">26Sound Studio · Private screening room for Tele2 and Rodnaya Rech</div>
+      <div class="footer-right">
+        <span data-i18n="footer.conf">Unlisted access · noindex</span>
+        <a href="#top" class="footer-link">
+          <span data-i18n="footer.top">Back to top</span>
+          <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="copyToast" class="toast-bar" role="status" aria-live="polite">
+    <svg class="icon-16" style="color: var(--positive);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="copyToastText"></span>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       1. EASY COMPOSER MEDIA & OPTIONAL WEBHOOK CONFIGURATION
+       ========================================================================== */
+    const WEBHOOK_CONFIG = {
+      enabled: false,
+      endpointUrl: ''
+    };
+
+    const VARIANTS_DATA = [
+      {
+        id: 1,
+        code: 'Demo 1',
+        videoSrc: 'media/TELE2_HEROIC_DEMO_01.mp4',
+        altVideoSrc: '',
+        audioSrc: 'media/TELE2_HEROIC_DEMO_01.mp3',
+        cutLabelEn: 'Master edit · Synced',
+        cutLabelRu: 'Основной монтаж · Синхрон',
+        titleEn: 'Demo 1',
+        titleRu: 'Демо 1',
+        duration: '0:30'
+      },
+      {
+        id: 2,
+        code: 'Demo 2',
+        videoSrc: 'media/TELE2_HEROIC_DEMO_02.mp4',
+        altVideoSrc: '',
+        audioSrc: 'media/TELE2_HEROIC_DEMO_02.mp3',
+        cutLabelEn: 'Master edit · Synced',
+        cutLabelRu: 'Основной монтаж · Синхрон',
+        titleEn: 'Demo 2',
+        titleRu: 'Демо 2',
+        duration: '0:30'
+      },
+      {
+        id: 3,
+        code: 'Demo 3',
+        videoSrc: 'media/TELE2_HEROIC_DEMO_03.mp4',
+        altVideoSrc: '',
+        audioSrc: 'media/TELE2_HEROIC_DEMO_03.mp3',
+        cutLabelEn: 'Master edit · Synced',
+        cutLabelRu: 'Основной монтаж · Синхрон',
+        titleEn: 'Demo 3',
+        titleRu: 'Демо 3',
+        duration: '0:30'
+      }
+    ];
+
+    /* ==========================================================================
+       2. BILINGUAL DICTIONARY (BALANCED LENGTHS SO SLIDE SIZES STAY LOCKED)
+       ========================================================================== */
+    const I18N = {
+      en: {
+        'nav.room': 'Tele2 · Rodnaya Rech',
+        'nav.brief': '01 Brief',
+        'nav.video': '02 Screening',
+        'nav.audio': '03 Audio tracks',
+        'nav.feedback': '04 Feedback',
+        'nav.compare': 'Original layout',
+        'nav.cta': 'Start screening',
+        'nav.menu': 'Menu',
+        'nav.close': 'Close',
+        'nav.brief.label': 'Creative brief',
+        'nav.video.label': 'Screening room',
+        'nav.audio.label': 'Audio tracks',
+        'nav.feedback.label': 'Feedback',
+        'hero.context': 'Tele2 New Year 2027 · Private client review',
+        'hero.titleLine2': 'PRICE FREEZE',
+        'hero.subtitle': '3 original score concepts · Directed by Aleksander Bach · Rodnaya Rech',
+        'hero.ctaVideo': 'Watch with picture',
+        'hero.ctaAudio': 'Listen to audio tracks',
+        'hero.scroll': 'Scroll to explore',
+        'hero.unlisted': 'Private link · Unlisted review',
+        'brief.eyebrow': '01 · Creative brief',
+        'brief.title': 'Director’s music brief',
+        'brief.lead': 'Three original musical directions written to Aleksander Bach’s brief for Tele2’s New Year “Price Freeze 2027” campaign.',
+        'brief.directorLabel': 'Director: Aleksander (Ali) Bach',
+        'brief.quote': '“Strong recognisable melody for the campaign. Cinematic, powerful, and unique — people watch the film and recognise the music every time. The music is big; the humor comes from within (their acting).”',
+        'brief.refNote': 'Mood references are for emotional scale only — all three demos feature original themes written from scratch for campaign recall.',
+        'brief.scopeTag': 'Stage 01 deliverables',
+        'brief.scopeText': '3 demo concepts (video sync + stereo master) → select 1 direction to finalize',
+        'brief.p1.title': 'Cinematic weight',
+        'brief.p1.desc': 'Orchestral scale and serious dramatic weight give the commercial a larger-than-life theatrical frame.',
+        'brief.p2.title': 'Memorable melodic hook',
+        'brief.p2.desc': 'Each demo centers on a distinct melodic motif so audiences recognize the Tele2 campaign within the opening bars.',
+        'brief.p3.title': 'Serious score, deadpan comedy',
+        'brief.p3.desc': 'Scored completely straight so the humor emerges organically through contrast with the actors’ deadpan performances.',
+        'video.eyebrow': '02 · Synced screening',
+        'video.title': 'Compare tracks with picture',
+        'video.lead': 'Switch seamlessly between all three demos locked to the edit without losing your timestamp, log timecoded notes, or download files.',
+        'video.rulerHint': 'Jump to timestamp',
+        'video.logTc': 'Log timecode',
+        'video.dlVideo': 'Video MP4',
+        'video.dlAudio': 'Audio MP3',
+        'audio.eyebrow': '03 · Pure audio tracks',
+        'audio.title': 'Listen without picture',
+        'audio.lead': 'Compare melody, dynamics, and mix balance in isolation from picture. Click anywhere on a waveform to jump to any section of a track.',
+        'audio.overviewHint': 'Click any bar along a waveform to jump directly to that point in the track',
+        'audio.overviewSpecs': '3 demos · 320 kbps MP3',
+        'audio.watchBtn': 'Watch',
+        'audio.favBtn': 'Favorite',
+        'audio.favSelected': 'Selected',
+        'audio.tcBtn': 'Log TC',
+        'fb.eyebrow': '04 · Selection & notes',
+        'fb.title': 'Direction and feedback',
+        'fb.lead': 'Select your preferred direction, collect timecoded notes per demo, and share a structured summary directly into your Telegram working group.',
+        'fb.step1': '1. Preferred direction',
+        'fb.dir1': 'Demo 1',
+        'fb.dir2': 'Demo 2',
+        'fb.dir3': 'Demo 3',
+        'fb.dirHybrid': 'Hybrid (Combine)',
+        'fb.dirAdjust': 'Need revisions',
+        'fb.step2': '2. Timecoded notes by demo',
+        'fb.tab1': 'Demo 1',
+        'fb.tab2': 'Demo 2',
+        'fb.tab3': 'Demo 3',
+        'fb.insertTc': 'Insert player timecode',
+        'fb.step3': '3. Overall impressions and concept notes',
+        'fb.step4': '4. Reviewer name or role',
+        'fb.dispatchTag': 'Working group workflow',
+        'fb.dispatchTitle': 'Send or export review',
+        'fb.dispatchNote': '“Share to Telegram group” opens Telegram’s native chat picker so you can post directly into your working group chat instead of a 1-on-1 DM.',
+        'fb.btnTg': 'Share to Telegram group',
+        'fb.btnCopy': 'Copy review for chat',
+        'fb.btnTxt': 'Download report (.txt)',
+        'fb.btnWebhook': 'Post directly to group',
+        'fb.phVariant': 'Notes for this demo (e.g. [0:12] Strong melodic lift here; would push dynamics harder into 0:24)',
+        'fb.phOverall': 'Overall impressions on mood, melody, tempo, or orchestral balance',
+        'fb.phAuthor': 'Aleksander Bach (Director) or Rodnaya Rech Producer',
+        'footer.copy': '26Sound Studio · Private screening room for Tele2 and Rodnaya Rech',
+        'footer.conf': 'Private link · Unlisted review',
+        'footer.top': 'Back to top',
+        'dynamic.activeDemo': 'Active demo',
+        'dynamic.screening': 'Screening',
+        'dynamic.editingNote': 'Editing notes for Demo',
+        'dynamic.toastCopied': 'Review copied to clipboard',
+        'dynamic.toastTc': 'Timecode added to Demo',
+        'dynamic.toastFav': 'Selected direction:',
+        'dynamic.toastTxt': 'Downloaded feedback report (.txt)',
+        'dynamic.toastSent': 'Review posted to working group'
+      },
+      ru: {
+        'nav.room': 'Tele2 · Родная Речь',
+        'nav.brief': '01 Бриф',
+        'nav.video': '02 Скрининг',
+        'nav.audio': '03 Аудио-треки',
+        'nav.feedback': '04 Фидбек',
+        'nav.compare': 'Оригинальная версия',
+        'nav.cta': 'К скринингу',
+        'nav.menu': 'Меню',
+        'nav.close': 'Закрыть',
+        'nav.brief.label': 'Творческий бриф',
+        'nav.video.label': 'Просмотр с видео',
+        'nav.audio.label': 'Чистые треки',
+        'nav.feedback.label': 'Обратная связь',
+        'hero.context': 'Tele2 Новый год 2027 · Закрытый просмотр',
+        'hero.titleLine2': 'ЗАМОРОЗКА ЦЕНЫ',
+        'hero.subtitle': '3 оригинальных концепта музыки · Режиссёр: Александер Бах · Родная Речь',
+        'hero.ctaVideo': 'Смотреть на монтаже',
+        'hero.ctaAudio': 'Слушать чистые треки',
+        'hero.scroll': 'Листайте вниз',
+        'hero.unlisted': 'Закрытая ссылка · Прямой доступ',
+        'brief.eyebrow': '01 · Творческий бриф',
+        'brief.title': 'Музыкальный бриф режиссёра',
+        'brief.lead': 'Три самостоятельных музыкальных направления, написанных по брифу Александра Баха для новогодней кампании Tele2 «Заморозка цены 2027».',
+        'brief.directorLabel': 'Режиссёр: Александер (Али) Бах',
+        'brief.quote': '«Сильная узнаваемая мелодия для всей кампании. Кинематографично, мощно и уникально — зрители смотрят ролик и каждый раз сразу узнают музыку. Звук масштабный и серьёзный, а юмор рождается изнутри — через актёрскую игру».',
+        'brief.refNote': 'Референсы задают лишь эмоциональный масштаб — все три демо написаны с нуля для максимальной узнаваемости бренда.',
+        'brief.scopeTag': 'Объём этапа 01',
+        'brief.scopeText': '3 демо-концепта (видео-синхрон + аудио-мастер) → выбор 1 направления для финализации',
+        'brief.p1.title': 'Кинематографичный масштаб',
+        'brief.p1.desc': 'Оркестровый размах и серьёзная драматургия музыки задают ролику масштаб большого кино.',
+        'brief.p2.title': 'Узнаваемый мелодический хук',
+        'brief.p2.desc': 'В основе каждой версии — запоминающийся музыкальный мотив, чтобы кампания считывалась с первых тактов.',
+        'brief.p3.title': 'Серьёзный пафос для комедии',
+        'brief.p3.desc': 'Музыка работает на полном серьёзе и контрасте, чтобы юмор рождался внутри кадра через игру актёров.',
+        'video.eyebrow': '02 · Синхронный просмотр',
+        'video.title': 'Проверка на монтаже',
+        'video.lead': 'Переключайтесь между тремя демо под видео без потери таймкода, фиксируйте заметки или скачивайте файлы.',
+        'video.rulerHint': 'Переход по таймкоду',
+        'video.logTc': 'Таймкод',
+        'video.dlVideo': 'Видео MP4',
+        'video.dlAudio': 'Аудио MP3',
+        'audio.eyebrow': '03 · Чистые аудио-треки',
+        'audio.title': 'Сравнение треков без видео',
+        'audio.lead': 'Оцените мелодию, динамику и баланс микса отдельно от картинки. Нажмите на любую точку волны для перемотки.',
+        'audio.overviewHint': 'Нажмите на любую точку волны для быстрого перехода по треку',
+        'audio.overviewSpecs': '3 демо · MP3 320 kbps',
+        'audio.watchBtn': 'К видео',
+        'audio.favBtn': 'В фавориты',
+        'audio.favSelected': 'Фаворит',
+        'audio.tcBtn': 'Таймкод',
+        'fb.eyebrow': '04 · Выбор и заметки',
+        'fb.title': 'Выбор направления и правки',
+        'fb.lead': 'Выберите подходящее направление, соберите заметки с таймкодами по каждому демо и отправьте структурированный отчёт в рабочую группу Telegram.',
+        'fb.step1': '1. Основное направление для доработки',
+        'fb.dir1': 'Демо 1',
+        'fb.dir2': 'Демо 2',
+        'fb.dir3': 'Демо 3',
+        'fb.dirHybrid': 'Скомбинировать (Гибрид)',
+        'fb.dirAdjust': 'Нужны правки',
+        'fb.step2': '2. Комментарии по вариантам с таймкодами',
+        'fb.tab1': 'Демо 1',
+        'fb.tab2': 'Демо 2',
+        'fb.tab3': 'Демо 3',
+        'fb.insertTc': 'Вставить таймкод плеера',
+        'fb.step3': '3. Общие впечатления и комментарии по концепту',
+        'fb.step4': '4. Ваше имя или роль в проекте',
+        'fb.dispatchTag': 'Удобно для рабочей группы',
+        'fb.dispatchTitle': 'Отправить или скопировать отзыв',
+        'fb.dispatchNote': 'Кнопка «Отправить в группу Telegram» открывает системный выбор чата в Telegram — выберите нужную рабочую группу, и структурированный отчёт сразу подставится в сообщение.',
+        'fb.btnTg': 'Отправить в группу Telegram',
+        'fb.btnCopy': 'Скопировать текст отзыва',
+        'fb.btnTxt': 'Скачать отчёт (.txt)',
+        'fb.btnWebhook': 'Отправить сразу в группу',
+        'fb.phVariant': 'Заметки по этому демо (например, [0:12] Отличный вход темы, к 0:24 хочется усилить динамику)',
+        'fb.phOverall': 'Общие пожелания по настроению, мелодии, темпу или балансу инструментов',
+        'fb.phAuthor': 'Александер Бах (Режиссёр) или продюсер Родная Речь',
+        'footer.copy': '26Sound Studio · Закрытый просмотр для Tele2 и Родной Речи',
+        'footer.conf': 'Закрытый доступ · Прямая ссылка',
+        'footer.top': 'Наверх',
+        'dynamic.activeDemo': 'Активный вариант',
+        'dynamic.screening': 'Просмотр',
+        'dynamic.editingNote': 'Заметки для Демо',
+        'dynamic.toastCopied': 'Текст отзыва скопирован',
+        'dynamic.toastTc': 'Таймкод добавлен к Демо',
+        'dynamic.toastFav': 'Выбрано направление:',
+        'dynamic.toastTxt': 'Отчёт скачан (.txt)',
+        'dynamic.toastSent': 'Отзыв отправлен в рабочую группу'
+      }
+    };
+
+    /* ==========================================================================
+       3. APP STATE
+       ========================================================================== */
+    const STORAGE_KEY = 'tele2_26sound_feedback_v1';
+    const LANG_STORAGE_KEY = 'tele2_26sound_lang';
+
+    function detectInitialLang() {
+      const params = new URLSearchParams(window.location.search);
+      const q = (params.get('lang') || '').toLowerCase();
+      if (q === 'ru' || q === 'en') return q;
+      try {
+        const saved = localStorage.getItem(LANG_STORAGE_KEY);
+        if (saved === 'ru' || saved === 'en') return saved;
+      } catch (_) {}
+      return 'en';
+    }
+
+    let currentLang = detectInitialLang();
+    let activeVariantId = 1;
+    let activeNoteTabId = 1;
+    let activeCutMode = 'A';
+    let lastActiveSource = 'video';
+    let playingAudioId = null;
+    const globalAudio = new Audio();
+    const audioDurations = {};
+
+    const feedbackState = {
+      direction: 'Demo 1',
+      notes: { 1: '', 2: '', 3: '' },
+      overall: '',
+      author: ''
+    };
+
+    /* ==========================================================================
+       4. HERO PULSE PRISM CANVAS LOOP + MOBILE DRAWER
+       ========================================================================== */
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function runHeroSequence() {
+      if (prefersReducedMotion) {
+        document.body.classList.add('reduced-motion', 'hero-phase-1', 'hero-phase-3', 'hero-phase-4');
+        return;
+      }
+      requestAnimationFrame(() => document.body.classList.add('hero-phase-1'));
+      setTimeout(() => document.body.classList.add('hero-phase-3'), 120);
+      setTimeout(() => document.body.classList.add('hero-phase-4'), 240);
+    }
+
+    const canvas = document.getElementById('fluted-logo-canvas');
+    const ctx = canvas.getContext('2d');
+    const heroSvgStage = document.getElementById('heroSvgStage');
+    let cw = 0, ch = 0, waveTime = 0;
+    let targetMouseX = 0, targetMouseY = 0, curMouseX = 0, curMouseY = 0;
+
+    function resizeCanvas() {
+      cw = canvas.width = window.innerWidth;
+      ch = canvas.height = Math.max(window.innerHeight, 620);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !prefersReducedMotion) {
+      window.addEventListener('mousemove', (e) => {
+        targetMouseX = ((e.clientX / window.innerWidth) * 2 - 1) * 12;
+        targetMouseY = ((e.clientY / window.innerHeight) * 2 - 1) * 10;
+      }, { passive: true });
+    }
+
+    function renderPulseLoop() {
+      curMouseX += (targetMouseX - curMouseX) * 0.055;
+      curMouseY += (targetMouseY - curMouseY) * 0.055;
+
+      if (!prefersReducedMotion) {
+        waveTime += 0.017;
+        const ax = Math.sin(waveTime * 0.45) * 4.5;
+        const ay = Math.cos(waveTime * 0.35) * 3.5;
+        heroSvgStage.style.transform = `translate3d(calc(-50% + ${(curMouseX + ax).toFixed(2)}px), calc(-50% + ${(curMouseY + ay).toFixed(2)}px), 0)`;
+      }
+
+      ctx.fillStyle = '#050204';
+      ctx.fillRect(0, 0, cw, ch);
+
+      const numBars = cw <= 640 ? Math.max(24, Math.floor(cw / 14)) : Math.max(44, Math.floor(cw / 28));
+      const barW = cw / numBars;
+      const shift = (curMouseX / 12) * 0.014;
+
+      for (let i = 0; i <= numBars; i++) {
+        const x = i * barW;
+        const norm = i / numBars;
+        const w1 = Math.sin((norm + shift) * 8.0 - waveTime * 1.65);
+        const w2 = Math.cos((norm - shift) * 4.5 + waveTime * 1.1);
+        const w3 = Math.sin(norm * 13.0 + waveTime * 2.1) * 0.35;
+        const comb = w1 * 0.55 + w2 * 0.45 + w3;
+
+        const centerBoost = 0.72 + 0.45 * Math.exp(-Math.pow((norm - 0.5) / 0.32, 2));
+        const barH = ch * Math.min(0.92, (0.26 + Math.abs(comb) * 0.48) * centerBoost);
+        const yCenter = ch * 0.5 + Math.sin(norm * 6.0 - waveTime * 1.2) * (ch * 0.06) + curMouseY * 0.35;
+
+        const topY = yCenter - barH / 2;
+        const botY = yCenter + barH / 2;
+        const g = ctx.createLinearGradient(x, topY, x, botY);
+        const alpha = Math.min(0.92, 0.42 + 0.42 * Math.abs(w1));
+        g.addColorStop(0, 'rgba(5, 2, 4, 0)');
+        g.addColorStop(0.22, 'rgba(0, 119, 255, 0.56)');
+        g.addColorStop(0.48, `rgba(255, 255, 255, ${alpha.toFixed(2)})`);
+        g.addColorStop(0.76, 'rgba(234, 90, 66, 0.72)');
+        g.addColorStop(1, 'rgba(5, 2, 4, 0)');
+
+        ctx.fillStyle = g;
+        ctx.fillRect(x, topY, barW * 0.64, barH);
+      }
+
+      if (!prefersReducedMotion) requestAnimationFrame(renderPulseLoop);
+    }
+
+    function toggleMobileMenu() { document.body.classList.toggle('mobile-nav-open'); }
+    function closeMobileMenu() { document.body.classList.remove('mobile-nav-open'); }
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileMenu(); });
+
+    /* ==========================================================================
+       5. BILINGUAL SWITCHER
+       ========================================================================== */
+    function t(key) {
+      return (I18N[currentLang] && I18N[currentLang][key]) || I18N.en[key] || key;
+    }
+
+    function setLanguage(lang) {
+      if (lang !== 'en' && lang !== 'ru') return;
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      try { localStorage.setItem(LANG_STORAGE_KEY, lang); } catch (_) {}
+
+      document.querySelectorAll('[data-lang-btn]').forEach((btn) => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+      });
+
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        el.textContent = t(el.getAttribute('data-i18n'));
+      });
+
+      document.getElementById('variantNoteInput').placeholder = t('fb.phVariant');
+      document.getElementById('overallNoteInput').placeholder = t('fb.phOverall');
+      document.getElementById('authorInput').placeholder = t('fb.phAuthor');
+
+      renderVideoTabs();
+      updateVideoMetadataUI();
+      renderAudioGrid();
+      updateCommentTabUI();
+      refreshSummaryPreview();
+    }
+
+    /* ==========================================================================
+       6. VIDEO SCREENING PLAYER
+       ========================================================================== */
+    const masterVideo = document.getElementById('masterVideo');
+
+    function formatClock(sec) {
+      if (!Number.isFinite(sec) || sec < 0) return '0:00';
+      const total = Math.floor(sec);
+      const m = Math.floor(total / 60);
+      const s = total % 60;
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function getVariant(id) {
+      return VARIANTS_DATA.find((v) => v.id === id) || VARIANTS_DATA[0];
+    }
+
+    function renderVideoTabs() {
+      const wrap = document.getElementById('variantTabs');
+      wrap.innerHTML = VARIANTS_DATA.map((v) => {
+        const isActive = v.id === activeVariantId;
+        const label = currentLang === 'ru' ? v.titleRu : v.titleEn;
+        const filename = v.videoSrc.split('/').pop();
+        return `
+          <button type="button" role="tab" aria-selected="${isActive}" class="variant-tab ${isActive ? 'active' : ''}" onclick="selectVariant(${v.id}, true)">
+            <div class="variant-tab-left">
+              <span class="variant-dot"></span>
+              <div class="variant-text-col">
+                <div class="variant-title">${label}</div>
+                <div class="variant-code tabular">${filename}</div>
+              </div>
+            </div>
+            <span class="variant-dur tabular">${v.duration}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function updateVideoMetadataUI() {
+      const v = getVariant(activeVariantId);
+      const srcPath = (activeCutMode === 'B' && v.altVideoSrc) ? v.altVideoSrc : v.videoSrc;
+      const filename = srcPath.split('/').pop();
+
+      const heroCounter = document.getElementById('heroDemoCounter');
+      if (heroCounter) heroCounter.textContent = `0${v.id} / 0${VARIANTS_DATA.length}`;
+      document.querySelectorAll('[data-hero-demo]').forEach((row) => {
+        row.classList.toggle('active', Number(row.getAttribute('data-hero-demo')) === v.id);
+      });
+
+      document.getElementById('theaterFilename').textContent = `${t('dynamic.screening')} · ${filename}`;
+      document.getElementById('nowCounterPill').textContent = `0${v.id} / 0${VARIANTS_DATA.length} · ${t('dynamic.activeDemo')}`;
+      document.getElementById('nowSpecs').textContent = filename;
+      document.getElementById('nowTitle').textContent = currentLang === 'ru' ? v.titleRu : v.titleEn;
+
+      document.getElementById('downloadVideoBtn').href = srcPath;
+      document.getElementById('downloadAudioFromVideoBtn').href = v.audioSrc;
+
+      const cutWrap = document.getElementById('cutSwitchContainer');
+      if (v.altVideoSrc) {
+        cutWrap.innerHTML = `
+          <button type="button" class="cut-switch-btn tabular ${activeCutMode === 'A' ? 'active' : ''}" onclick="switchCutMode('A')">Cut A</button>
+          <button type="button" class="cut-switch-btn tabular ${activeCutMode === 'B' ? 'active' : ''}" onclick="switchCutMode('B')">Cut B</button>
+        `;
+      } else {
+        const badgeText = currentLang === 'ru' ? v.cutLabelRu : v.cutLabelEn;
+        cutWrap.innerHTML = `<span class="cut-pill tabular">${badgeText}</span>`;
+      }
+    }
+
+    function selectVariant(id, autoplay) {
+      const v = getVariant(id);
+      const prevTime = masterVideo.currentTime || 0;
+      const wasPlaying = !masterVideo.paused;
+      activeVariantId = v.id;
+
+      renderVideoTabs();
+      updateVideoMetadataUI();
+
+      const targetSrc = (activeCutMode === 'B' && v.altVideoSrc) ? v.altVideoSrc : v.videoSrc;
+      const sourceEl = document.getElementById('videoSource');
+      if (sourceEl.getAttribute('src') !== targetSrc) {
+        sourceEl.setAttribute('src', targetSrc);
+        masterVideo.src = targetSrc;
+        masterVideo.load();
+        masterVideo.addEventListener('loadedmetadata', () => {
+          if (prevTime > 0 && prevTime < (masterVideo.duration || 999)) {
+            try { masterVideo.currentTime = prevTime; } catch (_) {}
+          }
+        }, { once: true });
+      }
+
+      if (autoplay || wasPlaying) {
+        pauseGlobalAudio();
+        lastActiveSource = 'video';
+        masterVideo.play().catch(() => {});
+      }
+    }
+
+    function switchCutMode(mode) {
+      activeCutMode = mode;
+      selectVariant(activeVariantId, false);
+    }
+
+    function prevVariant(autoplay) {
+      selectVariant(activeVariantId <= 1 ? VARIANTS_DATA.length : activeVariantId - 1, autoplay);
+    }
+
+    function nextVariant(autoplay) {
+      selectVariant(activeVariantId >= VARIANTS_DATA.length ? 1 : activeVariantId + 1, autoplay);
+    }
+
+    function seekVideoTo(sec) {
+      pauseGlobalAudio();
+      const applySeek = () => {
+        try {
+          masterVideo.currentTime = sec;
+        } catch (_) {}
+        masterVideo.play().catch(() => {});
+      };
+      if (masterVideo.readyState >= 1) {
+        applySeek();
+      } else {
+        masterVideo.addEventListener('loadedmetadata', applySeek, { once: true });
+        masterVideo.load();
+      }
+    }
+
+    function jumpToDemo(id) {
+      selectVariant(id, false);
+      document.getElementById('video-screening').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    masterVideo.addEventListener('play', () => {
+      pauseGlobalAudio();
+      lastActiveSource = 'video';
+    });
+
+    masterVideo.addEventListener('timeupdate', () => {
+      document.getElementById('liveVideoClock').textContent = formatClock(masterVideo.currentTime);
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowLeft') prevVariant(false);
+      if (e.key === 'ArrowRight') nextVariant(false);
+    });
+
+    /* ==========================================================================
+       7. STANDALONE AUDIO MASTERS + ALIGNED WAVEFORM DECKS
+       ========================================================================== */
+    const WAVEFORM_PATTERN = [
+      32, 48, 72, 64, 42, 82, 92, 68, 50, 76, 90, 58,
+      46, 84, 96, 74, 54, 88, 66, 44, 78, 92, 60, 48,
+      80, 70, 52, 86, 94, 62, 46, 74, 88, 64, 40, 82,
+      90, 68, 56, 78, 86, 62, 48, 72, 84, 58, 42, 64
+    ];
+
+    function pauseGlobalAudio() {
+      if (!globalAudio.paused) {
+        globalAudio.pause();
+      }
+      playingAudioId = null;
+      updateAudioCardsPlayingState();
+    }
+
+    function renderAudioGrid() {
+      const grid = document.getElementById('audioGrid');
+      const playSvg = '<svg class="icon-16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>';
+      const pauseSvg = '<svg class="icon-16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+
+      grid.innerHTML = VARIANTS_DATA.map((v) => {
+        const isPlaying = playingAudioId === v.id && !globalAudio.paused;
+        const isFav = feedbackState.direction === v.code || feedbackState.direction === `Demo ${v.id}` || feedbackState.direction === `Demo 0${v.id}`;
+        const title = currentLang === 'ru' ? v.titleRu : v.titleEn;
+        const filename = v.audioSrc.split('/').pop();
+        const barShift = (v.id - 1) * 7;
+
+        const barsHtml = WAVEFORM_PATTERN.map((_, idx) => {
+          const h = WAVEFORM_PATTERN[(idx + barShift) % WAVEFORM_PATTERN.length];
+          return `<span class="wf-bar" data-bar-idx="${idx}" style="height: ${h}%"></span>`;
+        }).join('');
+
+        return `
+          <article class="audio-row ${isPlaying ? 'is-playing' : ''} ${isFav ? 'is-favorite' : ''}" id="audioCard-${v.id}">
+            <div class="audio-info">
+              <h3 class="audio-row-title">${title}</h3>
+              <div class="audio-meta-line tabular">
+                <span class="audio-index">0${v.id}</span>
+                <span>·</span>
+                <span>${filename}</span>
+              </div>
+            </div>
+
+            <div class="audio-deck">
+              <button type="button" class="btn-play" onclick="toggleAudioTrack(${v.id})" aria-label="Play ${title}">
+                ${isPlaying ? pauseSvg : playSvg}
+              </button>
+              <div class="scrubber-col">
+                <div class="waveform-scrubber" id="wfScrubber-${v.id}" onclick="seekAudioTrack(event, ${v.id})">
+                  <span class="wf-tick-10" aria-hidden="true"></span>
+                  <span class="wf-tick-20" aria-hidden="true"></span>
+                  ${barsHtml}
+                </div>
+                <div class="waveform-ruler tabular">
+                  <span>0:00</span>
+                  <span>0:10</span>
+                  <span>0:20</span>
+                  <span>0:30</span>
+                </div>
+              </div>
+              <span class="audio-clock tabular" id="audioClock-${v.id}">0:00 / ${audioDurations[v.id] || v.duration}</span>
+            </div>
+
+            <div class="audio-row-actions">
+              <button type="button" class="btn-row btn-row-watch" onclick="watchFromAudioCard(${v.id})">
+                <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+                <span>${t('audio.watchBtn')}</span>
+              </button>
+              <button type="button" class="btn-row btn-row-tc" onclick="logAudioTimecode(${v.id})">
+                <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>${t('audio.tcBtn')}</span>
+              </button>
+              <button type="button" class="btn-row btn-row-fav ${isFav ? 'is-fav' : ''}" onclick="markFavoriteFromCard(${v.id})">
+                <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>${isFav ? t('audio.favSelected') : t('audio.favBtn')}</span>
+              </button>
+              <a href="${v.audioSrc}" download class="btn-row btn-dl-square" aria-label="Download ${filename}" title="Download MP3">
+                <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function updateAudioCardsPlayingState() {
+      const playSvg = '<svg class="icon-16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>';
+      const pauseSvg = '<svg class="icon-16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+
+      VARIANTS_DATA.forEach((v) => {
+        const card = document.getElementById(`audioCard-${v.id}`);
+        if (!card) return;
+        const isPlaying = playingAudioId === v.id && !globalAudio.paused;
+        card.classList.toggle('is-playing', isPlaying);
+        const btn = card.querySelector('.btn-play');
+        if (btn) btn.innerHTML = isPlaying ? pauseSvg : playSvg;
+      });
+    }
+
+    function toggleAudioTrack(id) {
+      const v = getVariant(id);
+      if (playingAudioId === id && !globalAudio.paused) {
+        pauseGlobalAudio();
+        return;
+      }
+
+      if (!masterVideo.paused) masterVideo.pause();
+
+      if (playingAudioId !== id || !globalAudio.src.endsWith(v.audioSrc)) {
+        globalAudio.src = v.audioSrc;
+      }
+      playingAudioId = id;
+      lastActiveSource = 'audio';
+      globalAudio.play().then(() => {
+        updateAudioCardsPlayingState();
+      }).catch(() => {});
+      updateAudioCardsPlayingState();
+    }
+
+    function seekAudioTrack(event, id) {
+      const v = getVariant(id);
+      const scrubber = document.getElementById(`wfScrubber-${id}`);
+      if (!scrubber) return;
+      const rect = scrubber.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+
+      if (playingAudioId !== id || !globalAudio.src.endsWith(v.audioSrc)) {
+        if (!masterVideo.paused) masterVideo.pause();
+        globalAudio.src = v.audioSrc;
+        playingAudioId = id;
+        lastActiveSource = 'audio';
+        globalAudio.addEventListener('loadedmetadata', () => {
+          if (globalAudio.duration) globalAudio.currentTime = pct * globalAudio.duration;
+          globalAudio.play().catch(() => {});
+          updateAudioCardsPlayingState();
+        }, { once: true });
+      } else if (globalAudio.duration) {
+        globalAudio.currentTime = pct * globalAudio.duration;
+      }
+    }
+
+    globalAudio.addEventListener('timeupdate', () => {
+      if (!playingAudioId) return;
+      const dur = globalAudio.duration || 0;
+      const cur = globalAudio.currentTime || 0;
+      if (dur > 0) audioDurations[playingAudioId] = formatClock(dur);
+
+      const clock = document.getElementById(`audioClock-${playingAudioId}`);
+      if (clock) {
+        const v = getVariant(playingAudioId);
+        clock.textContent = `${formatClock(cur)} / ${audioDurations[playingAudioId] || v.duration}`;
+      }
+
+      const scrubber = document.getElementById(`wfScrubber-${playingAudioId}`);
+      if (scrubber && dur > 0) {
+        const pct = cur / dur;
+        const bars = scrubber.querySelectorAll('.wf-bar');
+        const activeCount = Math.floor(pct * bars.length);
+        bars.forEach((b, i) => b.classList.toggle('played', i <= activeCount));
+      }
+    });
+
+    globalAudio.addEventListener('ended', () => {
+      const finishedId = playingAudioId;
+      playingAudioId = null;
+      updateAudioCardsPlayingState();
+      if (finishedId) {
+        const scrubber = document.getElementById(`wfScrubber-${finishedId}`);
+        if (scrubber) scrubber.querySelectorAll('.wf-bar').forEach((b) => b.classList.remove('played'));
+      }
+    });
+
+    function watchFromAudioCard(id) {
+      pauseGlobalAudio();
+      selectVariant(id, true);
+      document.getElementById('video-screening').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function markFavoriteFromCard(id) {
+      const code = `Demo ${id}`;
+      feedbackState.direction = code;
+      document.querySelectorAll('#directionPills .choice-btn').forEach((btn) => {
+        btn.classList.toggle('active', btn.getAttribute('data-dir') === code);
+      });
+      document.getElementById('selectedDirectionEcho').textContent = code;
+      saveFeedbackDraft();
+      renderAudioGrid();
+      refreshSummaryPreview();
+      showToast(`${t('dynamic.toastFav')} ${code}`);
+    }
+
+    /* ==========================================================================
+       8. TIMECODE CAPTURE & TELEGRAM WORKING GROUP FEEDBACK
+       ========================================================================== */
+    function appendTimecodeToVariant(id, seconds) {
+      const stamp = `[${formatClock(seconds)}]`;
+      const existing = feedbackState.notes[id] || '';
+      const prefix = existing && !existing.endsWith('\n') ? '\n' : '';
+      feedbackState.notes[id] = `${existing}${prefix}${stamp} `;
+
+      switchNoteTab(id);
+      saveFeedbackDraft();
+      refreshSummaryPreview();
+
+      const ta = document.getElementById('variantNoteInput');
+      ta.focus();
+      ta.setSelectionRange(ta.value.length, ta.value.length);
+      showToast(`${t('dynamic.toastTc')} ${id}: ${stamp}`);
+    }
+
+    function logVideoTimecode() {
+      appendTimecodeToVariant(activeVariantId, masterVideo.currentTime || 0);
+      document.getElementById('feedback').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function logAudioTimecode(id) {
+      const sec = playingAudioId === id ? (globalAudio.currentTime || 0) : 0;
+      appendTimecodeToVariant(id, sec);
+      document.getElementById('feedback').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function insertActivePlayerTimecode() {
+      let sec = masterVideo.currentTime || 0;
+      if (lastActiveSource === 'audio' && playingAudioId === activeNoteTabId) {
+        sec = globalAudio.currentTime || 0;
+      }
+      appendTimecodeToVariant(activeNoteTabId, sec);
+    }
+
+    function selectDirection(dir, btn) {
+      feedbackState.direction = dir;
+      document.querySelectorAll('#directionPills .choice-btn').forEach((p) => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.getElementById('selectedDirectionEcho').textContent = dir;
+      saveFeedbackDraft();
+      renderAudioGrid();
+      refreshSummaryPreview();
+    }
+
+    function switchNoteTab(id) {
+      activeNoteTabId = id;
+      updateCommentTabUI();
+    }
+
+    function updateCommentTabUI() {
+      document.querySelectorAll('#commentTabsBar .note-tab').forEach((btn) => {
+        const tabId = Number(btn.getAttribute('data-note-tab'));
+        btn.classList.toggle('active', tabId === activeNoteTabId);
+        btn.classList.toggle('has-note', Boolean((feedbackState.notes[tabId] || '').trim()));
+      });
+      document.getElementById('activeNoteLabel').textContent = `${t('dynamic.editingNote')} ${activeNoteTabId}`;
+      document.getElementById('variantNoteInput').value = feedbackState.notes[activeNoteTabId] || '';
+    }
+
+    function handleVariantNoteInput() {
+      feedbackState.notes[activeNoteTabId] = document.getElementById('variantNoteInput').value;
+      updateCommentTabUI();
+      saveFeedbackDraft();
+      refreshSummaryPreview();
+    }
+
+    function setAuthor(name) {
+      document.getElementById('authorInput').value = name;
+      saveAndRefreshSummary();
+    }
+
+    function saveAndRefreshSummary() {
+      feedbackState.overall = document.getElementById('overallNoteInput').value;
+      feedbackState.author = document.getElementById('authorInput').value;
+      saveFeedbackDraft();
+      refreshSummaryPreview();
+    }
+
+    function buildFormattedReview() {
+      const isRu = currentLang === 'ru';
+      const author = (feedbackState.author || '').trim() || (isRu ? 'Команда Tele2 / Родная Речь' : 'Tele2 / Rodnaya Rech Team');
+      const lines = [];
+
+      lines.push(isRu ? '26Sound Studio — Отзыв по демо Tele2 «Заморозка цены 2027»' : '26Sound Studio — Tele2 “Price Freeze 2027” score review');
+      lines.push('----------------------------------------');
+      lines.push(`${isRu ? 'Выбранное направление' : 'Preferred direction'}: ${feedbackState.direction}`);
+      lines.push(`${isRu ? 'Отправитель' : 'Reviewer'}: ${author}`);
+      lines.push('');
+
+      let hasVariantNotes = false;
+      [1, 2, 3].forEach((id) => {
+        const note = (feedbackState.notes[id] || '').trim();
+        if (note) {
+          hasVariantNotes = true;
+          lines.push(`[Demo ${id}]`);
+          lines.push(note);
+          lines.push('');
+        }
+      });
+
+      if (!hasVariantNotes) {
+        lines.push(isRu ? '[Комментарии по вариантам]: пока не указаны' : '[Variant notes]: None added yet');
+        lines.push('');
+      }
+
+      const overall = (feedbackState.overall || '').trim();
+      if (overall) {
+        lines.push(isRu ? '[Общие комментарии по концепту]' : '[Overall concept notes]');
+        lines.push(overall);
+        lines.push('');
+      }
+
+      return lines.join('\n').trim();
+    }
+
+    function refreshSummaryPreview() {
+      document.getElementById('summaryPreviewBox').textContent = buildFormattedReview();
+    }
+
+    function shareToTelegramGroup() {
+      const summary = buildFormattedReview();
+      const pageUrl = window.location.href.split('#')[0];
+      const url = `https://t.me/share/url?url=${encodeURIComponent(pageUrl)}&text=${encodeURIComponent('\n\n' + summary)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function copyReviewToClipboard() {
+      const summary = buildFormattedReview();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(summary).then(() => showToast(t('dynamic.toastCopied'))).catch(() => fallbackCopy(summary));
+      } else {
+        fallbackCopy(summary);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast(t('dynamic.toastCopied'));
+    }
+
+    function downloadReviewTxt() {
+      const summary = buildFormattedReview();
+      const blob = new Blob([summary], { type: 'text/plain;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'tele2_music_review_feedback.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+      showToast(t('dynamic.toastTxt'));
+    }
+
+    async function sendViaWebhook() {
+      if (!WEBHOOK_CONFIG.enabled || !WEBHOOK_CONFIG.endpointUrl) return;
+      try {
+        await fetch(WEBHOOK_CONFIG.endpointUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            project: 'Tele2 Price Freeze 2027',
+            direction: feedbackState.direction,
+            notes: feedbackState.notes,
+            overall: feedbackState.overall,
+            author: feedbackState.author,
+            formatted: buildFormattedReview(),
+            lang: currentLang,
+            timestamp: new Date().toISOString()
+          })
+        });
+        showToast(t('dynamic.toastSent'));
+      } catch (err) {
+        copyReviewToClipboard();
+      }
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const el = document.getElementById('copyToast');
+      const txt = document.getElementById('copyToastText');
+      if (txt) txt.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+    }
+
+    function saveFeedbackDraft() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbackState));
+      } catch (_) {}
+    }
+
+    function restoreFeedbackDraft() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data.direction) {
+          feedbackState.direction = data.direction.replace(/^Demo 0([123])$/, 'Demo $1');
+        }
+        if (data.notes) feedbackState.notes = Object.assign({ 1: '', 2: '', 3: '' }, data.notes);
+        if (typeof data.overall === 'string') feedbackState.overall = data.overall;
+        if (typeof data.author === 'string') feedbackState.author = data.author;
+      } catch (_) {}
+
+      document.getElementById('overallNoteInput').value = feedbackState.overall || '';
+      document.getElementById('authorInput').value = feedbackState.author || '';
+      document.getElementById('selectedDirectionEcho').textContent = feedbackState.direction;
+      document.querySelectorAll('#directionPills .choice-btn').forEach((p) => {
+        p.classList.toggle('active', p.getAttribute('data-dir') === feedbackState.direction);
+      });
+    }
+
+    /* ==========================================================================
+       9. INITIALIZATION
+       ========================================================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      if (WEBHOOK_CONFIG.enabled && WEBHOOK_CONFIG.endpointUrl) {
+        document.getElementById('webhookSubmitBtn').style.display = 'inline-flex';
+      }
+      restoreFeedbackDraft();
+      setLanguage(currentLang);
+      selectVariant(1, false);
+      runHeroSequence();
+      renderPulseLoop();
+    });
+  </script>
+</body>
+</html>
