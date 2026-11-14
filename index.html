@@ -2274,7 +2274,7 @@
         <div class="theater-header">
           <div class="theater-file-info">
             <span class="status-dot" aria-hidden="true"></span>
-            <span class="tabular" id="theaterFilename">Screening · TELE2_HEROIC_DEMO_01.mp4</span>
+            <span class="tabular" id="theaterFilename">Screening · TELE2NY_1.mp4</span>
           </div>
           <div class="cut-controls" id="cutSwitchContainer">
             <span class="cut-pill tabular" id="theaterCutBadge">Master cut · Synced</span>
@@ -2282,8 +2282,8 @@
         </div>
 
         <div class="video-stage">
-          <video id="masterVideo" controls playsinline preload="metadata">
-            <source id="videoSource" src="media/TELE2_HEROIC_DEMO_01.mp4" type="video/mp4" />
+          <video id="masterVideo" src="media/TELE2NY_1.mp4" controls playsinline preload="metadata">
+            <source id="videoSource" src="media/TELE2NY_1.mp4" type="video/mp4" />
           </video>
         </div>
 
@@ -2302,7 +2302,7 @@
         <div class="inspector-main">
           <div class="inspector-meta">
             <span class="active-tag tabular" id="nowCounterPill">01 / 03 · Active demo</span>
-            <span class="inspector-specs tabular" id="nowSpecs">TELE2_HEROIC_DEMO_01.mp4</span>
+            <span class="inspector-specs tabular" id="nowSpecs">TELE2NY_1.mp4</span>
           </div>
           <h3 class="inspector-title" id="nowTitle">Demo 1</h3>
         </div>
@@ -2314,12 +2314,12 @@
             <span class="tabular" id="liveVideoClock">0:00</span>
           </button>
 
-          <a id="downloadVideoBtn" href="media/TELE2_HEROIC_DEMO_01.mp4" download class="btn-studio">
+          <a id="downloadVideoBtn" href="media/TELE2NY_1.mp4" download class="btn-studio">
             <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
             <span data-i18n="video.dlVideo">Video MP4</span>
           </a>
 
-          <a id="downloadAudioFromVideoBtn" href="media/TELE2_HEROIC_DEMO_01.mp3" download class="btn-studio">
+          <a id="downloadAudioFromVideoBtn" href="media/TELE2NY_MUSIC_v1.mp3" download class="btn-studio">
             <svg class="icon-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
             <span data-i18n="video.dlAudio">Audio MP3</span>
           </a>
@@ -2345,7 +2345,7 @@
 
       <div class="audio-overview-bar">
         <span data-i18n="audio.overviewHint">Click any bar along a waveform to jump directly to that point in the track</span>
-        <span class="tabular" data-i18n="audio.overviewSpecs">3 demos · 320 kbps MP3</span>
+        <span class="tabular" data-i18n="audio.overviewSpecs">3 demos · 48 kHz MP3</span>
       </div>
 
       <div class="audio-stack" id="audioGrid"></div>
@@ -2505,38 +2505,44 @@
       {
         id: 1,
         code: 'Demo 1',
-        videoSrc: 'media/TELE2_HEROIC_DEMO_01.mp4',
+        videoSrc: 'media/TELE2NY_1.mp4',
         altVideoSrc: '',
-        audioSrc: 'media/TELE2_HEROIC_DEMO_01.mp3',
+        audioSrc: 'media/TELE2NY_MUSIC_v1.mp3',
         cutLabelEn: 'Master edit · Synced',
         cutLabelRu: 'Основной монтаж · Синхрон',
         titleEn: 'Demo 1',
         titleRu: 'Демо 1',
-        duration: '0:30'
+        duration: '0:30',
+        audioDuration: '0:30',
+        waveform: [68, 69, 62, 81, 89, 78, 78, 75, 80, 75, 92, 96, 84, 77, 85, 95, 94, 86, 86, 89, 87, 86, 90, 89, 84, 87, 88, 90, 93, 93, 88, 94, 90, 89, 92, 95, 86, 95, 88, 84, 87, 71, 77, 77, 74, 81, 87, 47]
       },
       {
         id: 2,
         code: 'Demo 2',
-        videoSrc: 'media/TELE2_HEROIC_DEMO_02.mp4',
+        videoSrc: 'media/TELE2NY_2.mp4',
         altVideoSrc: '',
-        audioSrc: 'media/TELE2_HEROIC_DEMO_02.mp3',
+        audioSrc: 'media/TELE2NY_MUSIC_v2.mp3',
         cutLabelEn: 'Master edit · Synced',
         cutLabelRu: 'Основной монтаж · Синхрон',
         titleEn: 'Demo 2',
         titleRu: 'Демо 2',
-        duration: '0:30'
+        duration: '0:30',
+        audioDuration: '0:36',
+        waveform: [80, 70, 67, 65, 68, 69, 65, 68, 64, 72, 68, 65, 64, 63, 73, 71, 74, 71, 87, 69, 65, 70, 67, 69, 70, 69, 69, 70, 71, 68, 66, 67, 71, 75, 72, 73, 82, 96, 63, 42, 34, 30, 28, 26, 25, 24, 23, 22]
       },
       {
         id: 3,
         code: 'Demo 3',
-        videoSrc: 'media/TELE2_HEROIC_DEMO_03.mp4',
+        videoSrc: 'media/TELE2NY_3.mp4',
         altVideoSrc: '',
-        audioSrc: 'media/TELE2_HEROIC_DEMO_03.mp3',
+        audioSrc: 'media/TELE2NY_MUSIC_v3.mp3',
         cutLabelEn: 'Master edit · Synced',
         cutLabelRu: 'Основной монтаж · Синхрон',
         titleEn: 'Demo 3',
         titleRu: 'Демо 3',
-        duration: '0:30'
+        duration: '0:30',
+        audioDuration: '0:34',
+        waveform: [76, 80, 81, 71, 79, 77, 78, 80, 73, 79, 78, 82, 79, 77, 79, 77, 79, 79, 77, 80, 80, 84, 77, 80, 78, 81, 83, 82, 83, 77, 76, 82, 80, 84, 85, 81, 84, 86, 87, 96, 67, 38, 30, 26, 24, 23, 22, 22]
       }
     ];
 
@@ -2590,7 +2596,7 @@
         'audio.title': 'Listen without picture',
         'audio.lead': 'Compare melody, dynamics, and mix balance in isolation from picture. Click anywhere on a waveform to jump to any section of a track.',
         'audio.overviewHint': 'Click any bar along a waveform to jump directly to that point in the track',
-        'audio.overviewSpecs': '3 demos · 320 kbps MP3',
+        'audio.overviewSpecs': '3 demos · 48 kHz MP3',
         'audio.watchBtn': 'Watch',
         'audio.favBtn': 'Favorite',
         'audio.favSelected': 'Selected',
@@ -2681,7 +2687,7 @@
         'audio.title': 'Сравнение треков без видео',
         'audio.lead': 'Оцените мелодию, динамику и баланс микса отдельно от картинки. Нажмите на любую точку волны для перемотки.',
         'audio.overviewHint': 'Нажмите на любую точку волны для быстрого перехода по треку',
-        'audio.overviewSpecs': '3 демо · MP3 320 kbps',
+        'audio.overviewSpecs': '3 демо · MP3 48 kHz',
         'audio.watchBtn': 'К видео',
         'audio.favBtn': 'В фавориты',
         'audio.favSelected': 'Фаворит',
@@ -2751,6 +2757,7 @@
     let activeCutMode = 'A';
     let lastActiveSource = 'video';
     let playingAudioId = null;
+    let lastLoadedAudioId = null;
     const globalAudio = new Audio();
     const audioDurations = {};
 
@@ -2959,9 +2966,9 @@
 
       const targetSrc = (activeCutMode === 'B' && v.altVideoSrc) ? v.altVideoSrc : v.videoSrc;
       const sourceEl = document.getElementById('videoSource');
-      if (sourceEl.getAttribute('src') !== targetSrc) {
+      if (sourceEl.getAttribute('src') !== targetSrc || masterVideo.getAttribute('src') !== targetSrc) {
         sourceEl.setAttribute('src', targetSrc);
-        masterVideo.src = targetSrc;
+        masterVideo.setAttribute('src', targetSrc);
         masterVideo.load();
         masterVideo.addEventListener('loadedmetadata', () => {
           if (prevTime > 0 && prevTime < (masterVideo.duration || 999)) {
@@ -3036,6 +3043,16 @@
       90, 68, 56, 78, 86, 62, 48, 72, 84, 58, 42, 64
     ];
 
+    function resetAudioTrackProgress(id) {
+      if (!id) return;
+      const v = getVariant(id);
+      const totalDur = audioDurations[id] || v.audioDuration || v.duration;
+      const clock = document.getElementById(`audioClock-${id}`);
+      if (clock) clock.textContent = `0:00 / ${totalDur}`;
+      const scrubber = document.getElementById(`wfScrubber-${id}`);
+      if (scrubber) scrubber.querySelectorAll('.wf-bar').forEach((b) => b.classList.remove('played'));
+    }
+
     function pauseGlobalAudio() {
       if (!globalAudio.paused) {
         globalAudio.pause();
@@ -3054,11 +3071,18 @@
         const isFav = feedbackState.direction === v.code || feedbackState.direction === `Demo ${v.id}` || feedbackState.direction === `Demo 0${v.id}`;
         const title = currentLang === 'ru' ? v.titleRu : v.titleEn;
         const filename = v.audioSrc.split('/').pop();
+        const totalDur = audioDurations[v.id] || v.audioDuration || v.duration;
+        const barsSource = v.waveform || WAVEFORM_PATTERN;
         const barShift = (v.id - 1) * 7;
 
-        const barsHtml = WAVEFORM_PATTERN.map((_, idx) => {
-          const h = WAVEFORM_PATTERN[(idx + barShift) % WAVEFORM_PATTERN.length];
-          return `<span class="wf-bar" data-bar-idx="${idx}" style="height: ${h}%"></span>`;
+        const isCurrentLoaded = lastLoadedAudioId === v.id && Number.isFinite(globalAudio.duration) && globalAudio.duration > 0;
+        const curSec = isCurrentLoaded ? (globalAudio.currentTime || 0) : 0;
+        const activeBars = isCurrentLoaded ? Math.floor((curSec / globalAudio.duration) * barsSource.length) : -1;
+
+        const barsHtml = barsSource.map((rawH, idx) => {
+          const h = v.waveform ? rawH : barsSource[(idx + barShift) % barsSource.length];
+          const playedCls = idx <= activeBars ? ' played' : '';
+          return `<span class="wf-bar${playedCls}" data-bar-idx="${idx}" style="height: ${h}%"></span>`;
         }).join('');
 
         return `
@@ -3086,10 +3110,10 @@
                   <span>0:00</span>
                   <span>0:10</span>
                   <span>0:20</span>
-                  <span>0:30</span>
+                  <span>${totalDur}</span>
                 </div>
               </div>
-              <span class="audio-clock tabular" id="audioClock-${v.id}">0:00 / ${audioDurations[v.id] || v.duration}</span>
+              <span class="audio-clock tabular" id="audioClock-${v.id}">${formatClock(curSec)} / ${totalDur}</span>
             </div>
 
             <div class="audio-row-actions">
@@ -3137,8 +3161,13 @@
 
       if (!masterVideo.paused) masterVideo.pause();
 
-      if (playingAudioId !== id || !globalAudio.src.endsWith(v.audioSrc)) {
+      const isSameLoaded = lastLoadedAudioId === id && Boolean(globalAudio.getAttribute('src')) && globalAudio.src.endsWith(v.audioSrc);
+      if (!isSameLoaded) {
+        if (lastLoadedAudioId && lastLoadedAudioId !== id) {
+          resetAudioTrackProgress(lastLoadedAudioId);
+        }
         globalAudio.src = v.audioSrc;
+        lastLoadedAudioId = id;
       }
       playingAudioId = id;
       lastActiveSource = 'audio';
@@ -3155,9 +3184,15 @@
       const rect = scrubber.getBoundingClientRect();
       const pct = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
 
-      if (playingAudioId !== id || !globalAudio.src.endsWith(v.audioSrc)) {
-        if (!masterVideo.paused) masterVideo.pause();
+      if (!masterVideo.paused) masterVideo.pause();
+
+      const isSameLoaded = lastLoadedAudioId === id && Boolean(globalAudio.getAttribute('src')) && globalAudio.src.endsWith(v.audioSrc);
+      if (!isSameLoaded) {
+        if (lastLoadedAudioId && lastLoadedAudioId !== id) {
+          resetAudioTrackProgress(lastLoadedAudioId);
+        }
         globalAudio.src = v.audioSrc;
+        lastLoadedAudioId = id;
         playingAudioId = id;
         lastActiveSource = 'audio';
         globalAudio.addEventListener('loadedmetadata', () => {
@@ -3165,9 +3200,21 @@
           globalAudio.play().catch(() => {});
           updateAudioCardsPlayingState();
         }, { once: true });
-      } else if (globalAudio.duration) {
-        globalAudio.currentTime = pct * globalAudio.duration;
+      } else {
+        playingAudioId = id;
+        lastActiveSource = 'audio';
+        const applySeekAndPlay = () => {
+          if (globalAudio.duration) globalAudio.currentTime = pct * globalAudio.duration;
+          globalAudio.play().catch(() => {});
+          updateAudioCardsPlayingState();
+        };
+        if (globalAudio.readyState >= 1 && globalAudio.duration) {
+          applySeekAndPlay();
+        } else {
+          globalAudio.addEventListener('loadedmetadata', applySeekAndPlay, { once: true });
+        }
       }
+      updateAudioCardsPlayingState();
     }
 
     globalAudio.addEventListener('timeupdate', () => {
@@ -3179,7 +3226,7 @@
       const clock = document.getElementById(`audioClock-${playingAudioId}`);
       if (clock) {
         const v = getVariant(playingAudioId);
-        clock.textContent = `${formatClock(cur)} / ${audioDurations[playingAudioId] || v.duration}`;
+        clock.textContent = `${formatClock(cur)} / ${audioDurations[playingAudioId] || v.audioDuration || v.duration}`;
       }
 
       const scrubber = document.getElementById(`wfScrubber-${playingAudioId}`);
@@ -3192,13 +3239,11 @@
     });
 
     globalAudio.addEventListener('ended', () => {
-      const finishedId = playingAudioId;
+      const finishedId = playingAudioId || lastLoadedAudioId;
       playingAudioId = null;
+      lastLoadedAudioId = null;
       updateAudioCardsPlayingState();
-      if (finishedId) {
-        const scrubber = document.getElementById(`wfScrubber-${finishedId}`);
-        if (scrubber) scrubber.querySelectorAll('.wf-bar').forEach((b) => b.classList.remove('played'));
-      }
+      if (finishedId) resetAudioTrackProgress(finishedId);
     });
 
     function watchFromAudioCard(id) {
@@ -3258,14 +3303,14 @@
     }
 
     function logAudioTimecode(id) {
-      const sec = playingAudioId === id ? (globalAudio.currentTime || 0) : 0;
+      const sec = lastLoadedAudioId === id ? (globalAudio.currentTime || 0) : 0;
       appendTimecodeToVariant(id, sec);
       document.getElementById('feedback').scrollIntoView({ behavior: 'smooth' });
     }
 
     function insertActivePlayerTimecode() {
       let sec = masterVideo.currentTime || 0;
-      if (lastActiveSource === 'audio' && playingAudioId === activeNoteTabId) {
+      if (lastActiveSource === 'audio' && lastLoadedAudioId === activeNoteTabId) {
         sec = globalAudio.currentTime || 0;
       }
       appendTimecodeToVariant(activeNoteTabId, sec);
