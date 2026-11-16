@@ -1122,6 +1122,31 @@
       border-color: var(--hairline-strong);
       color: var(--text-primary);
     }
+    .cut-switch-btn.is-new.active {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: var(--text-primary);
+    }
+
+    .rev-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      border-radius: var(--radius-keycap);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.3;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .rev-badge.is-history {
+      background: var(--bg-raised);
+      border-color: var(--hairline-strong);
+      color: var(--text-muted);
+    }
 
     .video-stage {
       position: relative;
@@ -1350,6 +1375,49 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    .audio-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .audio-rev-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .audio-rev-btn {
+      height: 24px;
+      padding: 0 9px;
+      border-radius: var(--radius-keycap);
+      background: transparent;
+      border: 1px solid var(--hairline);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background-color 150ms var(--ease-studio), border-color 150ms var(--ease-studio), color 150ms var(--ease-studio);
+    }
+    .audio-rev-btn:hover {
+      border-color: var(--hairline-strong);
+      color: var(--text-primary);
+    }
+    .audio-rev-btn.active {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: var(--text-primary);
+    }
+    .audio-rev-btn.is-history.active {
+      background: var(--bg-raised);
+      border-color: var(--hairline-strong);
+      color: var(--text-secondary);
     }
 
     .audio-deck {
@@ -2519,30 +2587,52 @@
       {
         id: 2,
         code: 'Demo 2',
-        videoSrc: 'media/TELE2NY_2.mp4',
-        altVideoSrc: '',
-        audioSrc: 'media/TELE2NY_MUSIC_v2.mp3',
+        defaultRevision: 'v2',
         cutLabelEn: 'Master edit · Synced',
         cutLabelRu: 'Основной монтаж · Синхрон',
         titleEn: 'Demo 2',
         titleRu: 'Демо 2',
-        duration: '0:30',
-        audioDuration: '0:36',
-        waveform: [80, 70, 67, 65, 68, 69, 65, 68, 64, 72, 68, 65, 64, 63, 73, 71, 74, 71, 87, 69, 65, 70, 67, 69, 70, 69, 69, 70, 71, 68, 66, 67, 71, 75, 72, 73, 82, 96, 63, 42, 34, 30, 28, 26, 25, 24, 23, 22]
+        revisions: {
+          v2: {
+            videoSrc: 'media/TELE2NY_30sec_MUSIC_2_voice.mp4',
+            audioSrc: 'media/TELE2_MUSIC_v2_2.mp3',
+            duration: '0:30',
+            audioDuration: '0:36',
+            waveform: [79, 69, 67, 65, 68, 69, 65, 66, 65, 72, 66, 63, 65, 63, 70, 71, 74, 70, 84, 72, 68, 70, 71, 71, 70, 68, 71, 69, 74, 70, 70, 68, 70, 73, 74, 75, 73, 96, 78, 46, 23, 22, 22, 22, 22, 22, 22, 22]
+          },
+          v1: {
+            videoSrc: 'media/TELE2NY_2.mp4',
+            audioSrc: 'media/TELE2NY_MUSIC_v2.mp3',
+            duration: '0:30',
+            audioDuration: '0:36',
+            waveform: [80, 70, 67, 65, 68, 69, 65, 68, 64, 72, 68, 65, 64, 63, 73, 71, 74, 71, 87, 69, 65, 70, 67, 69, 70, 69, 69, 70, 71, 68, 66, 67, 71, 75, 72, 73, 82, 96, 63, 42, 34, 30, 28, 26, 25, 24, 23, 22]
+          }
+        }
       },
       {
         id: 3,
         code: 'Demo 3',
-        videoSrc: 'media/TELE2NY_3.mp4',
-        altVideoSrc: '',
-        audioSrc: 'media/TELE2NY_MUSIC_v3.mp3',
+        defaultRevision: 'v2',
         cutLabelEn: 'Master edit · Synced',
         cutLabelRu: 'Основной монтаж · Синхрон',
         titleEn: 'Demo 3',
         titleRu: 'Демо 3',
-        duration: '0:30',
-        audioDuration: '0:34',
-        waveform: [76, 80, 81, 71, 79, 77, 78, 80, 73, 79, 78, 82, 79, 77, 79, 77, 79, 79, 77, 80, 80, 84, 77, 80, 78, 81, 83, 82, 83, 77, 76, 82, 80, 84, 85, 81, 84, 86, 87, 96, 67, 38, 30, 26, 24, 23, 22, 22]
+        revisions: {
+          v2: {
+            videoSrc: 'media/TELE2NY_30sec_MUSIC_3_voice_2.mp4',
+            audioSrc: 'media/TELE2NY_MUSIC_v3_3.mp3',
+            duration: '0:30',
+            audioDuration: '0:36',
+            waveform: [76, 79, 79, 72, 78, 77, 78, 74, 78, 78, 80, 81, 77, 80, 76, 79, 81, 77, 79, 81, 84, 77, 81, 81, 81, 85, 83, 80, 78, 78, 84, 83, 86, 84, 86, 87, 89, 96, 60, 29, 24, 22, 22, 22, 22, 22, 22, 22]
+          },
+          v1: {
+            videoSrc: 'media/TELE2NY_3.mp4',
+            audioSrc: 'media/TELE2NY_MUSIC_v3.mp3',
+            duration: '0:30',
+            audioDuration: '0:34',
+            waveform: [76, 80, 81, 71, 79, 77, 78, 80, 73, 79, 78, 82, 79, 77, 79, 77, 79, 79, 77, 80, 80, 84, 77, 80, 78, 81, 83, 82, 83, 77, 76, 82, 80, 84, 85, 81, 84, 86, 87, 96, 67, 38, 30, 26, 24, 23, 22, 22]
+          }
+        }
       }
     ];
 
@@ -2578,7 +2668,7 @@
         'brief.quote': '“Strong recognisable melody for the campaign. Cinematic, powerful, and unique — people watch the film and recognise the music every time. The music is big; the humor comes from within (their acting).”',
         'brief.refNote': 'Mood references are for emotional scale only — all three demos feature original themes written from scratch for campaign recall.',
         'brief.scopeTag': 'Stage 01 deliverables',
-        'brief.scopeText': '3 demo concepts (video sync + stereo master) → select 1 direction to finalize',
+        'brief.scopeText': '3 demos · Demo 2 & 3 updated (v2 New Year) + v1 history',
         'brief.p1.title': 'Cinematic weight',
         'brief.p1.desc': 'Orchestral scale and serious dramatic weight give the commercial a larger-than-life theatrical frame.',
         'brief.p2.title': 'Memorable melodic hook',
@@ -2632,6 +2722,8 @@
         'footer.top': 'Back to top',
         'dynamic.activeDemo': 'In player',
         'dynamic.notSelected': 'Not selected',
+        'dynamic.revNew': 'v2 · New Year',
+        'dynamic.revOld': 'v1 · Original',
         'dynamic.screening': 'Screening',
         'dynamic.editingNote': 'Editing notes for Demo',
         'dynamic.toastCopied': 'Review copied to clipboard',
@@ -2669,7 +2761,7 @@
         'brief.quote': '«Сильная узнаваемая мелодия для всей кампании. Кинематографично, мощно и уникально — зрители смотрят ролик и каждый раз сразу узнают музыку. Звук масштабный и серьёзный, а юмор рождается изнутри — через актёрскую игру».',
         'brief.refNote': 'Референсы задают лишь эмоциональный масштаб — все три демо написаны с нуля для максимальной узнаваемости бренда.',
         'brief.scopeTag': 'Объём этапа 01',
-        'brief.scopeText': '3 демо-концепта (видео-синхрон + аудио-мастер) → выбор 1 направления для финализации',
+        'brief.scopeText': '3 демо · Демо 2 и 3 обновлены (v2 Новогодняя) + история v1',
         'brief.p1.title': 'Кинематографичный масштаб',
         'brief.p1.desc': 'Оркестровый размах и серьёзная драматургия музыки задают ролику масштаб большого кино.',
         'brief.p2.title': 'Узнаваемый мелодический хук',
@@ -2723,6 +2815,8 @@
         'footer.top': 'Наверх',
         'dynamic.activeDemo': 'В плеере',
         'dynamic.notSelected': 'Не выбрано',
+        'dynamic.revNew': 'v2 · Новогодняя',
+        'dynamic.revOld': 'v1 · Исходная',
         'dynamic.screening': 'Просмотр',
         'dynamic.editingNote': 'Заметки для Демо',
         'dynamic.toastCopied': 'Текст отзыва скопирован',
@@ -2758,6 +2852,7 @@
     let lastActiveSource = 'video';
     let playingAudioId = null;
     let lastLoadedAudioId = null;
+    const variantRevisions = { 2: 'v2', 3: 'v2' };
     const globalAudio = new Audio();
     const audioDurations = {};
 
@@ -2900,21 +2995,74 @@
     }
 
     function getVariant(id) {
-      return VARIANTS_DATA.find((v) => v.id === id) || VARIANTS_DATA[0];
+      const base = VARIANTS_DATA.find((v) => v.id === id) || VARIANTS_DATA[0];
+      if (!base.revisions) {
+        return { ...base, hasRevisions: false, revisionKey: 'v1' };
+      }
+      const revKey = variantRevisions[base.id] || base.defaultRevision || 'v2';
+      const revData = base.revisions[revKey] || base.revisions[base.defaultRevision] || Object.values(base.revisions)[0];
+      return {
+        ...base,
+        ...revData,
+        hasRevisions: true,
+        revisionKey: revKey
+      };
+    }
+
+    function getRevisionLabel(id, revKeyOverride) {
+      const v = getVariant(id);
+      if (!v.hasRevisions) return '';
+      const key = revKeyOverride || v.revisionKey;
+      return key === 'v2' ? t('dynamic.revNew') : t('dynamic.revOld');
+    }
+
+    function switchRevision(id, rev, autoplayVideoIfPlaying) {
+      const base = VARIANTS_DATA.find((v) => v.id === id);
+      if (!base || !base.revisions || !base.revisions[rev]) return;
+      variantRevisions[id] = rev;
+
+      if (lastLoadedAudioId === id) {
+        const wasAudioPlaying = playingAudioId === id && !globalAudio.paused;
+        if (playingAudioId === id) pauseGlobalAudio();
+        resetAudioTrackProgress(id);
+        const resolved = getVariant(id);
+        globalAudio.src = resolved.audioSrc;
+        delete audioDurations[id];
+        if (wasAudioPlaying) {
+          playingAudioId = id;
+          lastActiveSource = 'audio';
+          globalAudio.play().catch(() => {});
+        }
+      }
+
+      if (activeVariantId === id) {
+        selectVariant(id, Boolean(autoplayVideoIfPlaying && !masterVideo.paused));
+      } else {
+        renderVideoTabs();
+      }
+      renderAudioGrid();
+      refreshSummaryPreview();
     }
 
     function renderVideoTabs() {
       const wrap = document.getElementById('variantTabs');
-      wrap.innerHTML = VARIANTS_DATA.map((v) => {
+      wrap.innerHTML = VARIANTS_DATA.map((item) => {
+        const v = getVariant(item.id);
         const isActive = v.id === activeVariantId;
         const label = currentLang === 'ru' ? v.titleRu : v.titleEn;
         const filename = v.videoSrc.split('/').pop();
+        const revPill = v.hasRevisions
+          ? `<span class="rev-badge ${v.revisionKey === 'v1' ? 'is-history' : ''}">${getRevisionLabel(v.id)}</span>`
+          : '';
         return `
           <button type="button" role="tab" aria-selected="${isActive}" class="variant-tab ${isActive ? 'active' : ''}" onclick="selectVariant(${v.id}, true)">
             <div class="variant-tab-left">
               <span class="variant-dot"></span>
               <div class="variant-text-col">
-                <div class="variant-title">${label}</div>
+                <div class="audio-title-row">
+                  <div class="variant-title">${label}</div>
+                  ${revPill}
+                </div>
                 <div class="variant-code tabular">${filename}</div>
               </div>
             </div>
@@ -2936,7 +3084,9 @@
       });
 
       document.getElementById('theaterFilename').textContent = `${t('dynamic.screening')} · ${filename}`;
-      document.getElementById('nowCounterPill').textContent = `0${v.id} / 0${VARIANTS_DATA.length} · ${t('dynamic.activeDemo')}`;
+      document.getElementById('nowCounterPill').textContent = v.hasRevisions
+        ? `0${v.id} / 0${VARIANTS_DATA.length} · ${getRevisionLabel(v.id)}`
+        : `0${v.id} / 0${VARIANTS_DATA.length} · ${t('dynamic.activeDemo')}`;
       document.getElementById('nowSpecs').textContent = filename;
       document.getElementById('nowTitle').textContent = currentLang === 'ru' ? v.titleRu : v.titleEn;
 
@@ -2944,7 +3094,12 @@
       document.getElementById('downloadAudioFromVideoBtn').href = v.audioSrc;
 
       const cutWrap = document.getElementById('cutSwitchContainer');
-      if (v.altVideoSrc) {
+      if (v.hasRevisions) {
+        cutWrap.innerHTML = `
+          <button type="button" class="cut-switch-btn is-new tabular ${v.revisionKey === 'v2' ? 'active' : ''}" onclick="switchRevision(${v.id}, 'v2', true)">${t('dynamic.revNew')}</button>
+          <button type="button" class="cut-switch-btn tabular ${v.revisionKey === 'v1' ? 'active' : ''}" onclick="switchRevision(${v.id}, 'v1', true)">${t('dynamic.revOld')}</button>
+        `;
+      } else if (v.altVideoSrc) {
         cutWrap.innerHTML = `
           <button type="button" class="cut-switch-btn tabular ${activeCutMode === 'A' ? 'active' : ''}" onclick="switchCutMode('A')">Cut A</button>
           <button type="button" class="cut-switch-btn tabular ${activeCutMode === 'B' ? 'active' : ''}" onclick="switchCutMode('B')">Cut B</button>
@@ -3066,7 +3221,8 @@
       const playSvg = '<svg class="icon-16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>';
       const pauseSvg = '<svg class="icon-16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
 
-      grid.innerHTML = VARIANTS_DATA.map((v) => {
+      grid.innerHTML = VARIANTS_DATA.map((item) => {
+        const v = getVariant(item.id);
         const isPlaying = playingAudioId === v.id && !globalAudio.paused;
         const isFav = feedbackState.direction === v.code || feedbackState.direction === `Demo ${v.id}` || feedbackState.direction === `Demo 0${v.id}`;
         const title = currentLang === 'ru' ? v.titleRu : v.titleEn;
@@ -3085,15 +3241,29 @@
           return `<span class="wf-bar${playedCls}" data-bar-idx="${idx}" style="height: ${h}%"></span>`;
         }).join('');
 
+        const revBadge = v.hasRevisions
+          ? `<span class="rev-badge ${v.revisionKey === 'v1' ? 'is-history' : ''}">${getRevisionLabel(v.id)}</span>`
+          : '';
+        const revSwitchHtml = v.hasRevisions
+          ? `<div class="audio-rev-switch" role="group" aria-label="Version history for ${title}">
+              <button type="button" class="audio-rev-btn ${v.revisionKey === 'v2' ? 'active' : ''}" onclick="switchRevision(${v.id}, 'v2', false)">${t('dynamic.revNew')}</button>
+              <button type="button" class="audio-rev-btn is-history ${v.revisionKey === 'v1' ? 'active' : ''}" onclick="switchRevision(${v.id}, 'v1', false)">${t('dynamic.revOld')}</button>
+            </div>`
+          : '';
+
         return `
           <article class="audio-row ${isPlaying ? 'is-playing' : ''} ${isFav ? 'is-favorite' : ''}" id="audioCard-${v.id}">
             <div class="audio-info">
-              <h3 class="audio-row-title">${title}</h3>
+              <div class="audio-title-row">
+                <h3 class="audio-row-title">${title}</h3>
+                ${revBadge}
+              </div>
               <div class="audio-meta-line tabular">
                 <span class="audio-index">0${v.id}</span>
                 <span>·</span>
                 <span>${filename}</span>
               </div>
+              ${revSwitchHtml}
             </div>
 
             <div class="audio-deck">
@@ -3369,7 +3539,11 @@
 
       lines.push(isRu ? '26Sound Studio — Отзыв по демо Tele2 «Заморозка цены 2027»' : '26Sound Studio — Tele2 “Price Freeze 2027” score review');
       lines.push('----------------------------------------');
-      lines.push(`${isRu ? 'Выбранное направление' : 'Preferred direction'}: ${feedbackState.direction || t('dynamic.notSelected')}`);
+      const dirMatch = (feedbackState.direction || '').match(/^Demo ([123])$/);
+      const dirDisplay = dirMatch
+        ? (getRevisionLabel(Number(dirMatch[1])) ? `${feedbackState.direction} (${getRevisionLabel(Number(dirMatch[1]))})` : feedbackState.direction)
+        : (feedbackState.direction || t('dynamic.notSelected'));
+      lines.push(`${isRu ? 'Выбранное направление' : 'Preferred direction'}: ${dirDisplay}`);
       lines.push(`${isRu ? 'Отправитель' : 'Reviewer'}: ${author}`);
       lines.push('');
 
@@ -3378,7 +3552,8 @@
         const note = (feedbackState.notes[id] || '').trim();
         if (note) {
           hasVariantNotes = true;
-          lines.push(`[Demo ${id}]`);
+          const revSuffix = getRevisionLabel(id) ? ` · ${getRevisionLabel(id)}` : '';
+          lines.push(`[Demo ${id}${revSuffix}]`);
           lines.push(note);
           lines.push('');
         }
