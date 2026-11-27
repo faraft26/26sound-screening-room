@@ -576,6 +576,62 @@
       margin-top: 4px;
     }
 
+    .arch-note-line {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    /* Pipeline Section */
+    .pipeline-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .pipeline-step {
+      padding: 22px 20px;
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .pipeline-step:last-child {
+      border-right: none;
+    }
+
+    .pipeline-step-num {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .pipeline-step-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+
+    .pipeline-step-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
     .grid-3 {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -866,6 +922,45 @@
       white-space: nowrap;
     }
 
+    .pkg-anchor {
+      margin-top: 14px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--accent-tint);
+      color: var(--text-primary);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .pkg-anchor strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .tip-banner {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .tip-banner svg {
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .tip-banner strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
     .pkg-list {
       list-style: none;
       margin: 18px 0 24px;
@@ -1013,6 +1108,17 @@
       }
       .grid-3 {
         grid-template-columns: 1fr;
+      }
+      .pipeline-grid {
+        grid-template-columns: 1fr;
+      }
+      .pipeline-step {
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+        padding: 16px 20px;
+      }
+      .pipeline-step:last-child {
+        border-bottom: none;
       }
       .timeline-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1307,10 +1413,37 @@
 
       .principle-title { font-size: 11.5px !important; }
       .principle-desc { font-size: 9.5px !important; }
+      .arch-note-line { margin-top: 8px !important; padding-top: 8px !important; font-size: 9.5px !important; }
 
-      #case {
+      #pipeline {
         break-before: page !important;
       }
+
+      .pipeline-card {
+        box-shadow: none !important;
+        border: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-radius: 12px !important;
+        break-inside: avoid;
+      }
+
+      .pipeline-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+      }
+
+      .pipeline-step {
+        padding: 11px 10px !important;
+        border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+        border-bottom: none !important;
+        gap: 4px !important;
+      }
+
+      .pipeline-step:last-child {
+        border-right: none !important;
+      }
+
+      .pipeline-step-num { font-size: 10px !important; }
+      .pipeline-step-title { font-size: 10.5px !important; }
+      .pipeline-step-desc { font-size: 8.8px !important; line-height: 1.32 !important; }
 
       .featured-card {
         background: #F5F5F7 !important;
@@ -1357,11 +1490,16 @@
         color: #EA5A42;
       }
 
+      #packages {
+        break-before: page !important;
+        padding-bottom: 10px !important;
+      }
+
       .pkg-card {
         box-shadow: none !important;
         border: 1px solid rgba(0, 0, 0, 0.08) !important;
         border-radius: 14px !important;
-        padding: 12px 11px !important;
+        padding: 11px 10px !important;
         break-inside: avoid;
       }
 
@@ -1370,36 +1508,38 @@
         background: #FFFDFC !important;
       }
 
-      .pkg-name { font-size: 15px !important; }
-      .pkg-price { font-size: 15.5px !important; }
-      .pkg-price-row { margin-top: 8px !important; padding: 7px 0 !important; }
-      .pkg-list { margin: 8px 0 0 !important; gap: 5px !important; }
-      .pkg-list li { font-size: 9px !important; line-height: 1.34 !important; }
+      .pkg-name { font-size: 14.5px !important; }
+      .pkg-price { font-size: 15px !important; }
+      .pkg-price-row { margin-top: 7px !important; padding: 6px 0 !important; }
+      .pkg-anchor { margin-top: 7px !important; padding: 6px 8px !important; font-size: 8.5px !important; line-height: 1.3 !important; }
+      .pkg-list { margin: 7px 0 0 !important; gap: 4px !important; }
+      .pkg-list li { font-size: 8.6px !important; line-height: 1.3 !important; }
+      .tip-banner { margin-top: 8px !important; padding: 8px 12px !important; font-size: 9px !important; background: #F5F5F7 !important; }
 
       #terms {
-        break-before: page !important;
+        padding-bottom: 10px !important;
       }
 
       .grid-2 {
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        gap: 12px !important;
+        gap: 10px !important;
         break-inside: avoid;
       }
 
       .terms-card {
         box-shadow: none !important;
         border: 1px solid rgba(0, 0, 0, 0.08) !important;
-        border-radius: 14px !important;
+        border-radius: 12px !important;
       }
 
-      .terms-head { padding: 10px 14px !important; font-size: 12px !important; }
-      .terms-row { padding: 9px 14px !important; gap: 10px !important; }
-      .terms-num-box { width: 22px !important; height: 22px !important; font-size: 10px !important; }
-      .terms-text { font-size: 10px !important; line-height: 1.38 !important; }
+      .terms-head { padding: 8px 12px !important; font-size: 11px !important; }
+      .terms-row { padding: 6px 12px !important; gap: 8px !important; }
+      .terms-num-box { width: 20px !important; height: 20px !important; font-size: 9px !important; }
+      .terms-text { font-size: 8.8px !important; line-height: 1.3 !important; }
 
       .apple-footer {
         background: #FFFFFF !important;
-        padding: 14px 0 0 !important;
+        padding: 10px 0 0 !important;
         break-inside: avoid;
       }
 
@@ -1431,6 +1571,7 @@
 
       <nav class="nav-links" aria-label="Навигация">
         <a href="#architecture" class="nav-link">Архитектура</a>
+        <a href="#pipeline" class="nav-link">Пайплайн</a>
         <a href="#case" class="nav-link">Кейс</a>
         <a href="#packages" class="nav-link">Пакеты</a>
         <a href="#terms" class="nav-link">Условия</a>
@@ -1468,7 +1609,7 @@
 
           <div class="hero-addressee-pill">
             <span class="hero-dot" aria-hidden="true"></span>
-            <span>Для артиста · meow! dammit</span>
+            <span>Для meow! dammit / Менеджмент</span>
           </div>
         </div>
 
@@ -1485,7 +1626,7 @@
           <div class="bento-tile">
             <span class="bento-label">Кому адресовано</span>
             <span class="bento-value">meow! dammit</span>
-            <span class="bento-sub">Ясмин Гулиева</span>
+            <span class="bento-sub">Артист / Менеджмент</span>
           </div>
           <div class="bento-tile">
             <span class="bento-label">Формат программы</span>
@@ -1499,8 +1640,8 @@
           </div>
           <div class="bento-tile">
             <span class="bento-label">Бюджет и сроки</span>
-            <span class="bento-value tabular">от 160 000 ₸</span>
-            <span class="bento-sub tabular">3 формата · 2–7 раб. дней</span>
+            <span class="bento-value tabular">от 200 000 ₸</span>
+            <span class="bento-sub tabular">200 · 300 · 500 тыс. ₸</span>
           </div>
         </div>
 
@@ -1537,7 +1678,7 @@
 
       <div class="arch-card">
         <div class="arch-card-top">
-          <span class="arch-label tabular">Схема концертной ленты · 00:00 — 20:00</span>
+          <span class="arch-label tabular">Предварительная схема концертной ленты · 00:00 — 20:00</span>
           <div class="arch-legend">
             <span class="legend-item">
               <span class="legend-dot is-accent" aria-hidden="true"></span>
@@ -1615,6 +1756,9 @@
             </div>
           </div>
         </div>
+        <div class="arch-note-line">
+          Предполагаемый каркас программы — финальный порядок треков, длительность интро и аутро, характер переходов и точки общения с залом утверждаем вместе на этапе ТЗ.
+        </div>
       </div>
 
       <div class="grid-3">
@@ -1642,10 +1786,51 @@
       </div>
     </section>
 
-    <!-- 02 · Relevant Case (Right before Pricing) -->
+    <!-- 02 · Pipeline -->
+    <section id="pipeline" class="content-section" aria-labelledby="pipeline-heading">
+      <div class="section-head">
+        <div class="section-eyebrow">02 · Пайплайн производства</div>
+        <h2 id="pipeline-heading" class="section-title">Как строится работа над шоу</h2>
+        <p class="section-subtitle">
+          Прозрачный поэтапный процесс — сначала вместе фиксируем режиссуру выступления и техническое задание, и только затем уходим в производство звука.
+        </p>
+      </div>
+
+      <div class="pipeline-card">
+        <div class="pipeline-grid">
+          <div class="pipeline-step">
+            <span class="pipeline-step-num tabular">01</span>
+            <h3 class="pipeline-step-title">Обсуждение и режиссура</h3>
+            <p class="pipeline-step-desc">Разбираем концепцию выступления, музыкальное направление, референсы, порядок 5–6 треков и ключевые пики шоу.</p>
+          </div>
+          <div class="pipeline-step">
+            <span class="pipeline-step-num tabular">02</span>
+            <h3 class="pipeline-step-title">Составление ТЗ</h3>
+            <p class="pipeline-step-desc">Фиксируем техническое задание и план производства: хронометраж интро/аутро, логику переходов, talk-beds и формат сцены.</p>
+          </div>
+          <div class="pipeline-step">
+            <span class="pipeline-step-num tabular">03</span>
+            <h3 class="pipeline-step-title">Продакшн и звук</h3>
+            <p class="pipeline-step-desc">Создаём авторское интро, переходы и аутро; в пакете Headliner проводим студийную сессию и live-апгрейды треков.</p>
+          </div>
+          <div class="pipeline-step">
+            <span class="pipeline-step-num tabular">04</span>
+            <h3 class="pipeline-step-title">Прогон и правки</h3>
+            <p class="pipeline-step-desc">Передаём сборку на прослушивание и репетицию, собираем фидбек команды и вносим точечные правки.</p>
+          </div>
+          <div class="pipeline-step">
+            <span class="pipeline-step-num tabular">05</span>
+            <h3 class="pipeline-step-title">Мастеринг и выдача</h3>
+            <p class="pipeline-step-desc">Делаем концертный live-мастеринг под порталы и отдаём готовый сценический пакет: WAV-блоки, микс и Cue Sheet.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · Relevant Case (Right before Pricing) -->
     <section id="case" class="content-section" aria-labelledby="case-heading">
       <div class="section-head">
-        <div class="section-eyebrow">02 · Релевантный кейс</div>
+        <div class="section-eyebrow">03 · Релевантный кейс</div>
         <h2 id="case-heading" class="section-title">Как это звучит на живой сцене</h2>
         <p class="section-subtitle">
           Пример концертной программы, в которой наша команда делала звуковое оформление, авторское интро, аутро и сценические аранжировки.
@@ -1716,10 +1901,10 @@
       </div>
     </section>
 
-    <!-- 03 · Packages -->
+    <!-- 04 · Packages -->
     <section id="packages" class="content-section" aria-labelledby="packages-heading">
       <div class="section-head">
-        <div class="section-eyebrow">03 · Форматы и смета</div>
+        <div class="section-eyebrow">04 · Форматы и смета</div>
         <h2 id="packages-heading" class="section-title">Три уровня продакшна</h2>
         <p class="section-subtitle">
           Прозрачная стоимость под разную глубину проработки шоу — от быстрой сценической сборки до полного live-продакшна со студийной сессией и стем-плейбеком.
@@ -1736,7 +1921,7 @@
             <h3 class="pkg-name">Basic</h3>
             <p class="pkg-sub">Динамичная сборка шоу</p>
             <div class="pkg-price-row">
-              <span class="pkg-price tabular">160 000 ₸</span>
+              <span class="pkg-price tabular">200 000 ₸</span>
               <span class="pkg-term tabular">2–3 раб. дня</span>
             </div>
             <ul class="pkg-list">
@@ -1748,7 +1933,7 @@
               <li><strong>Правки:</strong> 1 круг консолидированных правок</li>
             </ul>
           </div>
-          <a href="https://wa.me/77018876613?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D0%BE%20%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82%D0%BD%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B5%20meow!%20dammit%20%E2%80%94%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D0%BD%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%20Basic%20(160%20000%20%E2%82%B8)." target="_blank" rel="noopener noreferrer" class="btn-secondary-card">
+          <a href="https://wa.me/77018876613?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D0%BE%20%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82%D0%BD%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B5%20meow!%20dammit%20%E2%80%94%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D0%BD%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%20Basic%20(200%20000%20%E2%82%B8)." target="_blank" rel="noopener noreferrer" class="btn-secondary-card">
             Выбрать Basic ↗
           </a>
         </article>
@@ -1763,8 +1948,11 @@
             <h3 class="pkg-name">Pro</h3>
             <p class="pkg-sub">Авторское звуковое шоу</p>
             <div class="pkg-price-row">
-              <span class="pkg-price tabular">270 000 ₸</span>
+              <span class="pkg-price tabular">300 000 ₸</span>
               <span class="pkg-term tabular">4–5 раб. дней</span>
+            </div>
+            <div class="pkg-anchor">
+              <strong>Оптимальный выбор:</strong> за +100 000 ₸ к Basic вы получаете авторскую музыку интро, live-мастеринг всех треков под порталы и 2 круга правок.
             </div>
             <ul class="pkg-list">
               <li><strong>Драматургия всего сета:</strong> разбор трек-листа, темпов и динамической кривой на 20 минут</li>
@@ -1777,7 +1965,7 @@
               <li><strong>Правки:</strong> 2 круга правок</li>
             </ul>
           </div>
-          <a href="https://wa.me/77018876613?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D0%BE%20%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82%D0%BD%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B5%20meow!%20dammit%20%E2%80%94%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D0%BD%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%20Pro%20(270%20000%20%E2%82%B8)." target="_blank" rel="noopener noreferrer" class="btn-primary-pill" style="width: 100%;">
+          <a href="https://wa.me/77018876613?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D0%BE%20%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82%D0%BD%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B5%20meow!%20dammit%20%E2%80%94%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D0%BD%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%20Pro%20(300%20000%20%E2%82%B8)." target="_blank" rel="noopener noreferrer" class="btn-primary-pill" style="width: 100%;">
             Выбрать Pro ↗
           </a>
         </article>
@@ -1791,28 +1979,39 @@
             <h3 class="pkg-name">Headliner</h3>
             <p class="pkg-sub">Полный live-продакшн</p>
             <div class="pkg-price-row">
-              <span class="pkg-price tabular">430 000 ₸</span>
+              <span class="pkg-price tabular">500 000 ₸</span>
               <span class="pkg-term tabular">5–7 раб. дней</span>
             </div>
             <ul class="pkg-list">
               <li><strong>Всё из пакета Pro:</strong> полная режиссура, авторское интро и аутро, переходы и live-мастеринг</li>
-              <li><strong>Студийная сессия (до 3 часов) в 26Sound Studio:</strong> запись голосовых вставок, скитов, интро-монолога и сценических адлибов Ясмин</li>
+              <li><strong>Студийная сессия (до 3 часов) в 26Sound Studio:</strong> запись голосовых вставок, скитов, интро-монолога и сценических адлибов артиста</li>
               <li><strong>Live-апгрейды 2–3 ключевых треков:</strong> альтернативные концертные брейкдауны, усиленные дропы и ямы под интерактив с залом</li>
               <li><strong>Стем-пакет (Ableton / Playback Stems):</strong> раздельные дорожки (бит, бэки, SFX) и клик-трек для ушного мониторинга и синхронизации со светом</li>
               <li><strong>Правки:</strong> 2 круга правок и корректировка после первого репетиционного прогона</li>
             </ul>
           </div>
-          <a href="https://wa.me/77018876613?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D0%BE%20%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82%D0%BD%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B5%20meow!%20dammit%20%E2%80%94%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D0%BD%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%20Headliner%20(430%20000%20%E2%82%B8)." target="_blank" rel="noopener noreferrer" class="btn-secondary-card">
+          <a href="https://wa.me/77018876613?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D0%BE%20%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82%D0%BD%D0%BE%D0%B9%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B5%20meow!%20dammit%20%E2%80%94%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D0%B5%D0%BD%20%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%20Headliner%20(500%20000%20%E2%82%B8)." target="_blank" rel="noopener noreferrer" class="btn-secondary-card">
             Выбрать Headliner ↗
           </a>
         </article>
       </div>
+
+      <div class="tip-banner">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <span>
+          <strong>Гибкая конфигурация:</strong> если под конкретный концерт уже зафиксирован определённый бюджет, напишите нам — подберём оптимальный набор модулей под вашу площадку и задачи.
+        </span>
+      </div>
     </section>
 
-    <!-- 04 · Terms -->
+    <!-- 05 · Terms -->
     <section id="terms" class="content-section" aria-labelledby="terms-heading">
       <div class="section-head">
-        <div class="section-eyebrow">04 · Процесс и границы</div>
+        <div class="section-eyebrow">05 · Процесс и границы</div>
         <h2 id="terms-heading" class="section-title">Что нужно для старта и условия</h2>
       </div>
 
